@@ -1,0 +1,10 @@
+<Solution>
+  <Project Path="ReelRating.API/ReelRating.API.csproj" />
+  <Project Path="ReelRating.Application/ReelRating.Application.csproj" />
+  <Project Path="ReelRating.Core/ReelRating.Core.csproj" />
+  <Project Path="ReelRating.Data/ReelRating.Data.csproj" />
+  <Project Path="ReelRating.Domain/ReelRating.Domain.csproj" />
+  <Project Path="ReelRating.Infrastructure/ReelRating.Infrastructure.csproj" />
+  <Project Path="ReelRating.Tests/ReelRating.Tests.csproj" />
+  <Project Path="ReelRating.Worker/ReelRating.Worker.csproj" />
+</Solution>
