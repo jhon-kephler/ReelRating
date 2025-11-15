@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\joaoc\\source\\repos\\ReelRating\\ReelRating\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{22884AE5-1118-538C-72D1-5EBDACAFA4BF}|ReelRating.API\\ReelRating.API.csproj|c:\\users\\joaoc\\source\\repos\\reelrating\\reelrating\\reelrating.api\\reelrating.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{22884AE5-1118-538C-72D1-5EBDACAFA4BF}|ReelRating.API\\ReelRating.API.csproj|solutionrelative:reelrating.api\\reelrating.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{88F437BE-A0DB-9AF3-522C-70F65AEDEAD6}|ReelRating.Worker\\ReelRating.Worker.csproj|c:\\users\\joaoc\\source\\repos\\reelrating\\reelrating\\reelrating.worker\\reelrating.worker.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{88F437BE-A0DB-9AF3-522C-70F65AEDEAD6}|ReelRating.Worker\\ReelRating.Worker.csproj|solutionrelative:reelrating.worker\\reelrating.worker.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{144D641D-588F-844C-DDB9-61D1C35B2CAD}|ReelRating.Infrastructure\\ReelRating.Infrastructure.csproj|c:\\users\\joaoc\\source\\repos\\reelrating\\reelrating\\reelrating.infrastructure\\reelrating.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{144D641D-588F-844C-DDB9-61D1C35B2CAD}|ReelRating.Infrastructure\\ReelRating.Infrastructure.csproj|solutionrelative:reelrating.infrastructure\\reelrating.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F0870590-3EA6-845D-D878-1883E7010D56}|ReelRating.Data\\ReelRating.Data.csproj|c:\\users\\joaoc\\source\\repos\\reelrating\\reelrating\\reelrating.data\\reelrating.data.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{F0870590-3EA6-845D-D878-1883E7010D56}|ReelRating.Data\\ReelRating.Data.csproj|solutionrelative:reelrating.data\\reelrating.data.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ReelRating.Worker",
+              "DocumentMoniker": "C:\\Users\\joaoc\\source\\repos\\ReelRating\\ReelRating\\ReelRating.Worker\\ReelRating.Worker.csproj",
+              "RelativeDocumentMoniker": "ReelRating.Worker\\ReelRating.Worker.csproj",
+              "ToolTip": "C:\\Users\\joaoc\\source\\repos\\ReelRating\\ReelRating\\ReelRating.Worker\\ReelRating.Worker.csproj",
+              "RelativeToolTip": "ReelRating.Worker\\ReelRating.Worker.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-15T12:07:57.461Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ReelRating.Infrastructure",
+              "DocumentMoniker": "C:\\Users\\joaoc\\source\\repos\\ReelRating\\ReelRating\\ReelRating.Infrastructure\\ReelRating.Infrastructure.csproj",
+              "RelativeDocumentMoniker": "ReelRating.Infrastructure\\ReelRating.Infrastructure.csproj",
+              "ToolTip": "C:\\Users\\joaoc\\source\\repos\\ReelRating\\ReelRating\\ReelRating.Infrastructure\\ReelRating.Infrastructure.csproj",
+              "RelativeToolTip": "ReelRating.Infrastructure\\ReelRating.Infrastructure.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-15T12:05:33.641Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ReelRating.Data",
+              "DocumentMoniker": "C:\\Users\\joaoc\\source\\repos\\ReelRating\\ReelRating\\ReelRating.Data\\ReelRating.Data.csproj",
+              "RelativeDocumentMoniker": "ReelRating.Data\\ReelRating.Data.csproj",
+              "ToolTip": "C:\\Users\\joaoc\\source\\repos\\ReelRating\\ReelRating\\ReelRating.Data\\ReelRating.Data.csproj",
+              "RelativeToolTip": "ReelRating.Data\\ReelRating.Data.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABSAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-15T12:05:29.022Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ReelRating.API",
+              "DocumentMoniker": "C:\\Users\\joaoc\\source\\repos\\ReelRating\\ReelRating\\ReelRating.API\\ReelRating.API.csproj",
+              "RelativeDocumentMoniker": "ReelRating.API\\ReelRating.API.csproj",
+              "ToolTip": "C:\\Users\\joaoc\\source\\repos\\ReelRating\\ReelRating\\ReelRating.API\\ReelRating.API.csproj",
+              "RelativeToolTip": "ReelRating.API\\ReelRating.API.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-15T12:05:04.911Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
