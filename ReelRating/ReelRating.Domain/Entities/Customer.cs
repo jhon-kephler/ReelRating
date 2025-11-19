@@ -5,7 +5,7 @@ using System.Text;
 using System.Xml;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace SelectedMovie.Domain.Entities
+namespace ReelRating.Domain.Entities
 {
     public class Customer
     {

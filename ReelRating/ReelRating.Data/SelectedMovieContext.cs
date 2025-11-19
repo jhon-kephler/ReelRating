@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SelectedMovie.Data
+namespace ReelRating.Data
 {
-    public class SelectedMovieContext : DbContext
+    public class ReelRatingContext : DbContext
     {
-        public SelectedMovieContext(DbContextOptions<SelectedMovieContext> options) : base(options) { }
+        public ReelRatingContext(DbContextOptions<ReelRatingContext> options) : base(options) { }
     }
 }

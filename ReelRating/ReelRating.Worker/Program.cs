@@ -1,5 +1,5 @@
-using SelectedMovie.Infrastructure;
-using SelectedMovie.Worker;
+using ReelRating.Infrastructure;
+using ReelRating.Worker;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddHostedService<Worker>();

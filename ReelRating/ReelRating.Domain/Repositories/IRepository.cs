@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SelectedMovie.Domain.Repository
+namespace ReelRating.Domain.Repository
 {
     public interface IRepository<T>
     {

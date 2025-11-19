@@ -1,4 +1,4 @@
-﻿namespace SelectedMovie.Tests
+﻿namespace ReelRating.Tests
 {
     public class UnitTest1
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SelectedMovie.Domain.Repository;
+using ReelRating.Domain.Repository;
 
-namespace SelectedMovie.Data.Repositories
+namespace ReelRating.Data.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {

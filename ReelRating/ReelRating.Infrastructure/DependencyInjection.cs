@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using SelectedMovie.Data;
-using SelectedMovie.Data.Repositories;
-using SelectedMovie.Domain.Repository;
+using ReelRating.Data;
+using ReelRating.Data.Repositories;
+using ReelRating.Domain.Repository;
 using Microsoft.Extensions.Configuration;
 
-namespace SelectedMovie.Infrastructure
+namespace ReelRating.Infrastructure
 {
     public static class DependencyInjection
     {
@@ -28,7 +28,7 @@ namespace SelectedMovie.Infrastructure
         }
 
         public static IServiceCollection AddContext(this IServiceCollection services, IConfiguration configuration) =>
-            services.AddDbContext<SelectedMovieContext>(options => { options.UseOracle(configuration["ConnectionString:DefaultConnection"]); });
+            services.AddDbContext<ReelRatingContext>(options => { options.UseOracle(configuration["ConnectionString:DefaultConnection"]); });
 
         private static IServiceCollection AddHandler(this IServiceCollection services)
         {
@@ -41,7 +41,7 @@ namespace SelectedMovie.Infrastructure
         private static IServiceCollection AddRepository(this IServiceCollection services)
         {
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped(typeof(DbContext), typeof(SelectedMovieContext));
+            services.AddScoped(typeof(DbContext), typeof(ReelRatingContext));
             return services;
         }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SelectedMovie.Domain.Entities
+namespace ReelRating.Domain.Entities
 {
     public class Type_Cine
     {

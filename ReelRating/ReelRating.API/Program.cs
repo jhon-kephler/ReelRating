@@ -1,4 +1,4 @@
-using SelectedMovie.Infrastructure;
+using ReelRating.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 

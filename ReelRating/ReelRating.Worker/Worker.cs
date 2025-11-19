@@ -1,4 +1,4 @@
-namespace SelectedMovie.Worker
+namespace ReelRating.Worker
 {
     public class Worker(ILogger<Worker> logger) : BackgroundService
     {

@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace SelectedMovie.Core
+namespace ReelRating.Core
 {
 
     public static class AssemblyReference

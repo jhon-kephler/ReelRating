@@ -1,4 +1,4 @@
-namespace SelectedMovie.API
+namespace ReelRating.API
 {
     public class WeatherForecast
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace SelectedMovie.Domain.Entities
+namespace ReelRating.Domain.Entities
 {
     public class Cine
     {
