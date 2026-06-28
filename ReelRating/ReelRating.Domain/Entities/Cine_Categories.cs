@@ -7,7 +7,7 @@ namespace ReelRating.Domain.Entities
 {
     public class Cine_Categories
     {
-        private int Cine_Id { get; set; }
-        private int Categories_Id { get; set; }
+        public int Cine_Id { get; set; }
+        public int Categories_Id { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ReelRating.Domain.Repository;
+using System.Linq.Expressions;
 
 namespace ReelRating.Data.Repositories
 {
@@ -62,6 +63,11 @@ namespace ReelRating.Data.Repositories
         }
 
         public IEnumerable<T> GetAll() => _dbSet.ToList();
+
+        public async Task<T?> GetAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbSet.FirstOrDefaultAsync(predicate);
+        }
 
         private bool IsZero(object value)
         {

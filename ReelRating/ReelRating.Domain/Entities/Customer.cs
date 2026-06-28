@@ -9,12 +9,12 @@ namespace ReelRating.Domain.Entities
 {
     public class Customer
     {
-        private int Id { get; set; }
-        private string Nickname { get; set; }
-        private string Name { get; set; }
-        private string Email { get; set; }
-        private string Password { get; set; }
-        private DateTime CreatedAt { get; set; }
-        private bool Status { get; set; }
+        public int Id { get; set; }
+        public string Nickname { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public bool Status { get; set; }
     }
 }

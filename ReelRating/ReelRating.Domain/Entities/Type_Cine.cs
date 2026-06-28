@@ -6,7 +6,7 @@ namespace ReelRating.Domain.Entities
 {
     public class Type_Cine
     {
-        private int Id { get; set; }
-        private string Name { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

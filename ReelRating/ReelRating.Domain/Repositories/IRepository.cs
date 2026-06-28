@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace ReelRating.Domain.Repository
@@ -10,5 +11,6 @@ namespace ReelRating.Domain.Repository
         void Update(int id, T entity);
         void Delete(int id);
         IEnumerable<T> GetAll();
+        Task<T?> GetAsync(Expression<Func<T, bool>> predicate);
     }
 }
