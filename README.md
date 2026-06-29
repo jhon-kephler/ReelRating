@@ -97,15 +97,18 @@ EXIT;
 
 ---
 
-### 3. Criar as tabelas via Migration
+### 3. Criar as tabelas e dados base via Migration
 
 Na pasta `ReelRating/` (onde está o `.slnx`):
 
 ```bash
-dotnet ef database update \
-  --project ReelRating.Data\ReelRating.Data.csproj \
-  --startup-project ReelRating.API\ReelRating.API.csproj
+dotnet ef database update --project ReelRating.Data\ReelRating.Data.csproj --startup-project ReelRating.API\ReelRating.API.csproj
 ```
+- `InitialCreate` — cria todas as tabelas, índices e FKs
+- `SeedBaseData` — insere os dados base:
+  - **Tipos:** Filme, Série
+  - **Categorias de Filmes:** Ação, Aventura, Animação, Comédia, Crime, Documentário, Drama, Família, Fantasia, Histórico, Horror, Musical, Mistério, Romance, Ficção Científica, Curta-metragem, Esporte, Suspense, Guerra, Faroeste
+  - **Categorias de Séries:** Sitcom, Reality Show, Talk Show, Minissérie, Novela, Policial, Teen + todos os gêneros de Filmes
 
 ---
 
