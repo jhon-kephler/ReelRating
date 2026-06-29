@@ -50,6 +50,7 @@ CREATE TABLE Cine (
     Whatch_Id     NUMBER,
     Type_Id       NUMBER,
     URL_Poster    VARCHAR2(500),
+    TmdbId        NUMBER UNIQUE,
     CONSTRAINT FK_CINE_WHATCH FOREIGN KEY (Whatch_Id) REFERENCES WhatchIn(Id),
     CONSTRAINT FK_CINE_TYPE FOREIGN KEY (Type_Id) REFERENCES Type_Cine(Id)
 );
@@ -65,9 +66,7 @@ CREATE TABLE Cine_Categories (
 CREATE TABLE Notes (
     Id              NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     Cine_Id         NUMBER NOT NULL,
-    IMDB_Note       VARCHAR2(10),
-    Tommaters_Note  VARCHAR2(10),
-    Popcornmeter    VARCHAR2(10),
+    TMDB_Note       VARCHAR2(10),
     Customer_Notes  VARCHAR2(4000),
     CONSTRAINT FK_NOTES_CINE FOREIGN KEY (Cine_Id) REFERENCES Cine(Id)
 );
