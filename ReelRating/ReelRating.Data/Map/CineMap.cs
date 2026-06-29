@@ -15,12 +15,12 @@ namespace ReelRating.Data.Map
             builder.HasIndex(x => x.Name).HasDatabaseName("IDX_CINE_NAME");
             builder.Property(x => x.Year).HasColumnName("YEAR").HasColumnType("NUMBER(4)");
             builder.Property(x => x.Month).HasColumnName("MONTH").HasColumnType("NUMBER(2)");
-            builder.Property(x => x.Whatch_Id).HasColumnName("WHATCH_ID");
-            builder.Property(x => x.Type_Id).HasColumnName("TYPE_ID");
-            builder.Property(x => x.URL_Poster).HasColumnName("URL_POSTER").HasMaxLength(500);
+            builder.Property(x => x.WhatchId).HasColumnName("WHATCH_ID");
+            builder.Property(x => x.TypeId).HasColumnName("TYPE_ID");
+            builder.Property(x => x.URLPoster).HasColumnName("URL_POSTER").HasMaxLength(500);
 
-            builder.HasOne<WhatchIn>().WithMany().HasForeignKey(x => x.Whatch_Id).HasConstraintName("FK_CINE_WHATCH");
-            builder.HasOne<Type_Cine>().WithMany().HasForeignKey(x => x.Type_Id).HasConstraintName("FK_CINE_TYPE");
+            builder.HasOne<WhatchIn>().WithMany().HasForeignKey(x => x.WhatchId).HasConstraintName("FK_CINE_WHATCH");
+            builder.HasOne<TypeCine>().WithMany().HasForeignKey(x => x.TypeId).HasConstraintName("FK_CINE_TYPE");
         }
     }
 }

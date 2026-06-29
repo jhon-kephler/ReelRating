@@ -4,11 +4,11 @@ using System.Text;
 
 namespace ReelRating.Domain.Entities
 {
-    public class Favorites
+    public class CustomerWhatch
     {
         public int Id { get; set; }
         public int CustomerId { get; set; }
-        public int CineId { get; set; }
-        public bool? Deleted { get; set; }
+        public int? QttAccess { get; set; }
+        public int WhatchId { get; set; }
     }
 }

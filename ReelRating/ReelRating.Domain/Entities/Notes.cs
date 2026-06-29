@@ -7,9 +7,9 @@ namespace ReelRating.Domain.Entities
     public class Notes
     {
         public int Id { get; set; }
-        public int Cine_Id { get; set; }
-        public string? IMDB_Note { get; set; }
-        public string? TOMMATERS_Note { get; set; }
+        public int CineId { get; set; }
+        public string? IMDBNote { get; set; }
+        public string? TOMMATERSNote { get; set; }
         public string? POPCORNMETER { get; set; }
         public string? Customer_Notes { get; set; }
     }

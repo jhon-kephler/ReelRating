@@ -4,9 +4,9 @@ using ReelRating.Domain.Entities;
 
 namespace ReelRating.Data.Map
 {
-    public class Type_CineMap : IEntityTypeConfiguration<Type_Cine>
+    public class Type_CineMap : IEntityTypeConfiguration<TypeCine>
     {
-        public void Configure(EntityTypeBuilder<Type_Cine> builder)
+        public void Configure(EntityTypeBuilder<TypeCine> builder)
         {
             builder.ToTable("TYPE_CINE");
             builder.HasKey(x => x.Id);

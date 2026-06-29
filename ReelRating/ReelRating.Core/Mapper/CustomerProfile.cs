@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ReelRating.Core.Schema.AuthSchema;
 using ReelRating.Core.Schema.AuthSchema.Request;
 using ReelRating.Core.Schema.AuthSchema.Response;
 using ReelRating.Core.Schema.HomeSchema.Response;
@@ -13,7 +14,7 @@ namespace ReelRating.Core.Mapper
     {
         public CustomerProfile()
         {
-            CreateMap<Customer, AuthUserResponse>().ReverseMap();
+            CreateMap<Customer, UserInfo>().ReverseMap();
 
             CreateMap<CreateRequest, Customer>()
                 .ForMember(dest => dest.Nickname, opt => opt.MapFrom(src => src.Nickname))

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ReelRating.Domain.Entities
 {
-    public class Type_Cine
+    public class TypeCine
     {
         public int Id { get; set; }
         public string Name { get; set; }

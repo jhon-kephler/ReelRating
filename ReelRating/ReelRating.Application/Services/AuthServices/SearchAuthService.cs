@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
 using ReelRating.Application.Services.AuthServices.Interfaces;
 using ReelRating.Core.Schema;
+using ReelRating.Core.Schema.AuthSchema;
 using ReelRating.Core.Schema.AuthSchema.Request;
 using ReelRating.Core.Schema.AuthSchema.Response;
-using ReelRating.Data.Command.AuthCommand;
 using ReelRating.Data.Query.AuthQuery;
 using ReelRating.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ReelRating.Application.Services.AuthServices
 {
@@ -16,11 +13,13 @@ namespace ReelRating.Application.Services.AuthServices
     {
         private readonly IMapper _mapper;
         private readonly IGetCustomerQuery _getCustomerQuery;
+        private readonly ITokenService _tokenService;
 
-        public SearchAuthService(IMapper mapper, IGetCustomerQuery getCustomerQuery)
+        public SearchAuthService(IMapper mapper, IGetCustomerQuery getCustomerQuery, ITokenService tokenService)
         {
             _mapper = mapper;
             _getCustomerQuery = getCustomerQuery;
+            _tokenService = tokenService;
         }
 
         public async Task<Result<AuthUserResponse>> SignInAsync(SignInRequest request)
@@ -46,10 +45,20 @@ namespace ReelRating.Application.Services.AuthServices
                 return result;
             }
 
-            var response = _mapper.Map<AuthUserResponse>(user);
+            var response = BuildResponse(user);
 
             result.SetSuccess(response);
             return result;
+        }
+
+        private AuthUserResponse BuildResponse(Customer user)
+        {
+            return new AuthUserResponse
+            {
+                User = _mapper.Map<UserInfo>(user),
+                AccessToken = _tokenService.GenerateToken(user),
+                ExpiresAt = DateTime.UtcNow.AddMinutes(30)
+            };
         }
     }
 }

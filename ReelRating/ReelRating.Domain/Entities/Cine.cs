@@ -11,8 +11,8 @@ namespace ReelRating.Domain.Entities
         public string Name { get; set; }
         public int? Year { get; set; }
         public int? Month { get; set; }
-        public int? Whatch_Id { get; set; }
-        public int? Type_Id { get; set; }
-        public string? URL_Poster { get; set; }
+        public int? WhatchId { get; set; }
+        public int? TypeId { get; set; }
+        public string? URLPoster { get; set; }
     }
 }

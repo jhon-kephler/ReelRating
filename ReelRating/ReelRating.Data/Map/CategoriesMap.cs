@@ -12,9 +12,9 @@ namespace ReelRating.Data.Map
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName("ID");
             builder.Property(x => x.Name).HasColumnName("NAME").HasMaxLength(100).IsRequired();
-            builder.Property(x => x.Type_Id).HasColumnName("TYPE_ID");
+            builder.Property(x => x.TypeId).HasColumnName("TYPE_ID");
 
-            builder.HasOne<Type_Cine>().WithMany().HasForeignKey(x => x.Type_Id).HasConstraintName("FK_CATEGORY_TYPE");
+            builder.HasOne<TypeCine>().WithMany().HasForeignKey(x => x.TypeId).HasConstraintName("FK_CATEGORY_TYPE");
         }
     }
 }

@@ -62,6 +62,7 @@ namespace ReelRating.Infrastructure
         
         private static IServiceCollection AddServices(this IServiceCollection services)
         {
+            services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<ISearchFiltersServices,SearchFiltersServices>();
             services.AddScoped<IManageAuthService, ManageAuthService>();
             services.AddScoped<ISearchAuthService, SearchAuthService>();

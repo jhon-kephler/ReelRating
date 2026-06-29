@@ -7,9 +7,9 @@ namespace ReelRating.Domain.Entities
     public class Comments
     {
         public int Id { get; set; }
-        public int Customer_Id { get; set; }
-        public int Cine_Id { get; set; }
-        public string? Comment_Text { get; set; }
+        public int CustomerId { get; set; }
+        public int CineId { get; set; }
+        public string? CommentText { get; set; }
         public bool? Deleted { get; set; }
     }
 }

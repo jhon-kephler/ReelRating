@@ -24,28 +24,23 @@ namespace ReelRating.Data.Repositories
         public void Update(int id, T entity)
         {
             var existingEntity = _dbSet.Find(id);
-            if (existingEntity != null)
-            {
-                var properties = typeof(T).GetProperties();
-                foreach (var property in properties)
-                {
-                    var newValue = property.GetValue(entity);
-                    var oldValue = property.GetValue(existingEntity);
-                    var propertyName = property.Name; // Obtém o nome da propriedade
+            if (existingEntity == null) return;
 
-                    // Verifica se o novo valor não é nulo e é diferente do valor existente
-                    if (newValue != null && !newValue.Equals(oldValue))
-                    {
-                        // Verifica se o novo valor não é zero (para tipos numéricos)
-                        if (!IsZero(newValue))
-                        {
-                            property.SetValue(existingEntity, newValue);
-                            _dbContext.Entry(existingEntity).Property(propertyName).IsModified = true;
-                        }
-                    }
-                }
-                _dbContext.SaveChanges();
+            var properties = typeof(T).GetProperties();
+            foreach (var property in properties)
+            {
+                if (!property.CanWrite) continue;
+
+                var newValue = property.GetValue(entity);
+                var oldValue = property.GetValue(existingEntity);
+
+                if (newValue == null || Equals(newValue, oldValue) || IsZero(newValue))
+                    continue;
+
+                property.SetValue(existingEntity, newValue);
+                _dbContext.Entry(existingEntity).Property(property.Name).IsModified = true;
             }
+            _dbContext.SaveChanges();
         }
 
         public void Delete(int id)

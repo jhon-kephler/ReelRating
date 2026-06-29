@@ -7,11 +7,11 @@ namespace ReelRating.Domain.Entities
     public class Review
     {
         public int Id { get; set; }
-        public int Customer_Id { get; set; }
-        public int Cine_Id { get; set; }
-        public int? Categories_Id { get; set; }
-        public int? Type_Id { get; set; }
-        public int? Status_Id { get; set; }
+        public int CustomerId { get; set; }
+        public int CineId { get; set; }
+        public int? CategoriesId { get; set; }
+        public int? TypeId { get; set; }
+        public int? StatusId { get; set; }
         public string? REVIEW { get; set; }
         public int? Note { get; set; }
         public bool? Deleted { get; set; }

@@ -11,12 +11,12 @@ namespace ReelRating.Data.Map
             builder.ToTable("PREFERENCES");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName("ID");
-            builder.Property(x => x.Customer_Id).HasColumnName("CUSTOMER_ID");
-            builder.Property(x => x.Categories_Id).HasColumnName("CATEGORIES_ID");
-            builder.Property(x => x.Note_Origin).HasColumnName("NOTE_ORIGIN").HasMaxLength(200);
+            builder.Property(x => x.CustomerId).HasColumnName("CUSTOMER_ID");
+            builder.Property(x => x.CategoriesId).HasColumnName("CATEGORIES_ID");
+            builder.Property(x => x.NoteOrigin).HasColumnName("NOTE_ORIGIN").HasMaxLength(200);
 
-            builder.HasOne<Customer>().WithMany().HasForeignKey(x => x.Customer_Id).HasConstraintName("FK_PREF_CUSTOMER");
-            builder.HasOne<Categories>().WithMany().HasForeignKey(x => x.Categories_Id).HasConstraintName("FK_PREF_CATEGORY");
+            builder.HasOne<Customer>().WithMany().HasForeignKey(x => x.CustomerId).HasConstraintName("FK_PREF_CUSTOMER");
+            builder.HasOne<Categories>().WithMany().HasForeignKey(x => x.CategoriesId).HasConstraintName("FK_PREF_CATEGORY");
         }
     }
 }

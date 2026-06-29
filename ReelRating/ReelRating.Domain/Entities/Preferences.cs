@@ -7,8 +7,8 @@ namespace ReelRating.Domain.Entities
     public class Preferences
     {
         public int Id { get; set; }
-        public int Customer_Id { get; set; }
-        public int Categories_Id { get; set; }
-        public string? Note_Origin { get; set; }
+        public int CustomerId { get; set; }
+        public int CategoriesId { get; set; }
+        public string? NoteOrigin { get; set; }
     }
 }
