@@ -1,5 +1,11 @@
 # 🎬 ReelRating
 
+![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet)
+![EF Core](https://img.shields.io/badge/EF%20Core-10.0-512BD4?logo=dotnet)
+![Oracle](https://img.shields.io/badge/Oracle-Free-F80000?logo=oracle)
+![MediatR](https://img.shields.io/badge/MediatR-14.1-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+
 > API REST para avaliação de filmes e séries, construída com .NET 10 aplicando Clean Architecture, CQRS com MediatR e sincronização automática com a API do TMDB.
 
 ---
@@ -104,6 +110,8 @@ Na pasta `ReelRating/` (onde está o `.slnx`):
 ```bash
 dotnet ef database update --project ReelRating.Data\ReelRating.Data.csproj --startup-project ReelRating.API\ReelRating.API.csproj
 ```
+
+Esse comando executa as migrations em ordem:
 - `InitialCreate` — cria todas as tabelas, índices e FKs
 - `SeedBaseData` — insere os dados base:
   - **Tipos:** Filme, Série
@@ -196,6 +204,19 @@ Obtenha sua API Key gratuitamente em: https://www.themoviedb.org/settings/api
 
 ---
 
+## 🗺️ Roadmap
+
+- [ ] Frontend web (React ou Angular)
+- [ ] Sistema de reviews e avaliações
+- [ ] Favoritos por usuário
+- [ ] Histórico de filmes assistidos
+- [ ] Recomendações baseadas em preferências
+- [ ] Suporte a séries com episódios
+- [ ] Notificações de novos lançamentos
+- [ ] Testes unitários e de integração
+
+---
+
 ## 📊 Diagramas
 
 Board completo com fluxos do sistema:
@@ -207,3 +228,9 @@ https://miro.com/app/board/uXjVLD77ekE=/?share_link_id=145055889614
 
 **João Carlos**
 GitHub: [@jhon-kephler](https://github.com/jhon-kephler)
+
+---
+
+## 📄 Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
