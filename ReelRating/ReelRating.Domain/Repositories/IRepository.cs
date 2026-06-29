@@ -12,5 +12,6 @@ namespace ReelRating.Domain.Repository
         void Delete(int id);
         IEnumerable<T> GetAll();
         Task<T?> GetAsync(Expression<Func<T, bool>> predicate);
+        IEnumerable<T> GetAllPagination(int pageNumber, int pageSize);
     }
 }

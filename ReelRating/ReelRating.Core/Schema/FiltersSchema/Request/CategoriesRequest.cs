@@ -6,6 +6,9 @@ namespace ReelRating.Core.Schema.HomeSchema.Request
 {
     public class CategoriesRequest : IRequest<PaginationResult<CategoriesResponse>>
     {
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public int PageNumber { get; set; }
+
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public int PageSize { get; set; }
 

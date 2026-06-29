@@ -59,10 +59,20 @@ namespace ReelRating.Data.Repositories
 
         public IEnumerable<T> GetAll() => _dbSet.ToList();
 
+        public IEnumerable<T> GetAllPagination(int pageNumber, int pageSize)
+        {
+            if (pageNumber < 1) pageNumber = 1;
+            if (pageSize < 1) pageSize = 10;
+
+            return _dbSet.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+        }
+
         public async Task<T?> GetAsync(Expression<Func<T, bool>> predicate)
         {
             return await _dbSet.FirstOrDefaultAsync(predicate);
         }
+
+
 
         private bool IsZero(object value)
         {

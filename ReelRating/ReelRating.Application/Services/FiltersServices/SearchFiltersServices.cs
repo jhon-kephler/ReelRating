@@ -24,7 +24,7 @@ namespace ReelRating.Application.Services.HomeServices
             var result = new PaginationResult<CategoriesResponse>();
             try
             {
-                var categories = _mapper.Map<List<CategoriesResponse>>(await _getListCategories.GetAllAsync());
+                var categories = _mapper.Map<List<CategoriesResponse>>(await _getListCategories.GetAllAsync(request.PageNumber, request.PageSize));
                 result.SetSuccess(categories, request.PageSize, request.TotalPages, request.TotalItems);
             }
             catch (Exception ex)

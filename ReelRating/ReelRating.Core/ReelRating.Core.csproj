@@ -15,8 +15,4 @@
     <ProjectReference Include="..\ReelRating.Domain\ReelRating.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Profiles\" />
-  </ItemGroup>
-
 </Project>

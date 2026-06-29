@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using ReelRating.Application.Services.AuthServices;
 using ReelRating.Application.Services.AuthServices.Interfaces;
 using ReelRating.Application.Services.HomeServices;
@@ -11,6 +13,7 @@ using ReelRating.Data.Query.AuthQuery;
 using ReelRating.Data.Query.FiltersQuery;
 using ReelRating.Data.Repositories;
 using ReelRating.Domain.Repository;
+using System.Text;
 
 namespace ReelRating.Infrastructure
 {
@@ -19,11 +22,39 @@ namespace ReelRating.Infrastructure
         public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddContext(configuration);
+            services.AddAuth(configuration);
             services.AddRepository();
             services.AddHandler();
             services.AddServices();
             services.AddQuery();
             services.AddCommand();
+
+            return services;
+        }
+
+        public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
+        {
+            var jwt = configuration.GetSection("Jwt");
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+
+                        ValidIssuer = jwt["Issuer"],
+                        ValidAudience = jwt["Audience"],
+
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(jwt["Key"]!))
+                    };
+                });
+
+            services.AddAuthorization();
 
             return services;
         }

@@ -3,7 +3,7 @@ using ReelRating.Domain.Repository;
 
 namespace ReelRating.Data.Query.FiltersQuery
 {
-    public interface IGetListCategories { Task<List<Categories>> GetAllAsync(); }
+    public interface IGetListCategories { Task<List<Categories>> GetAllAsync(int pageNumber, int pageSize); }
 
     public class GetListCategoriesQuery : IGetListCategories
     {
@@ -14,10 +14,10 @@ namespace ReelRating.Data.Query.FiltersQuery
             _repository = repository;
         }
 
-        public async Task<List<Categories>> GetAllAsync()
+        public async Task<List<Categories>> GetAllAsync(int pageNumber, int pageSize)
         {
             var result = new List<Categories>();
-            result = _repository.GetAll().ToList();
+            result = _repository.GetAllPagination(pageNumber, pageSize).ToList();
             return result;
         }
     }
