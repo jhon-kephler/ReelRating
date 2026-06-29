@@ -12,7 +12,7 @@ namespace ReelRating.Data.Repositories
         public Repository(DbContext dbContext)
         {
             _dbContext = dbContext;
-            _dbSet = _dbSet = dbContext.Set<T>();
+            _dbSet = dbContext.Set<T>();
         }
 
         public void Add(T entity)
