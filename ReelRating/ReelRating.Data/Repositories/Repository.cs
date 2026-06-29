@@ -17,7 +17,7 @@ namespace ReelRating.Data.Repositories
 
         public void Add(T entity)
         {
-            _dbSet.Attach(entity);
+            _dbSet.Add(entity);
             _dbContext.SaveChanges();
         }
 
@@ -26,20 +26,7 @@ namespace ReelRating.Data.Repositories
             var existingEntity = _dbSet.Find(id);
             if (existingEntity == null) return;
 
-            var properties = typeof(T).GetProperties();
-            foreach (var property in properties)
-            {
-                if (!property.CanWrite) continue;
-
-                var newValue = property.GetValue(entity);
-                var oldValue = property.GetValue(existingEntity);
-
-                if (newValue == null || Equals(newValue, oldValue) || IsZero(newValue))
-                    continue;
-
-                property.SetValue(existingEntity, newValue);
-                _dbContext.Entry(existingEntity).Property(property.Name).IsModified = true;
-            }
+            _dbContext.Entry(existingEntity).CurrentValues.SetValues(entity);
             _dbContext.SaveChanges();
         }
 
@@ -75,22 +62,6 @@ namespace ReelRating.Data.Repositories
         public async Task<T?> GetAsync(Expression<Func<T, bool>> predicate)
         {
             return await _dbSet.FirstOrDefaultAsync(predicate);
-        }
-
-
-
-        private bool IsZero(object value)
-        {
-            if (value is int intValue)
-            {
-                return intValue == 0;
-            }
-            else if (value is double doubleValue)
-            {
-                return doubleValue == 0.0;
-            }
-
-            return false;
         }
     }
 }

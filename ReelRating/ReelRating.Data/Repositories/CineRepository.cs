@@ -32,11 +32,13 @@ namespace ReelRating.Data.Repositories
                             .FirstOrDefaultAsync();
         }
 
-        public async Task<List<Cine>> ListCineByYearAsync(int year)
+        public async Task<List<Cine>> ListCineByYearAsync(int year, int pageNumber, int pageSize)
         {
             return await _dbSet
                 .Where(c => c.Year == year)
                 .OrderBy(c => c.Name)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
         }
 
@@ -49,6 +51,28 @@ namespace ReelRating.Data.Repositories
                 .Where(c => ids.Contains(c.Id))
                 .OrderBy(c => c.Name)
                 .ToListAsync();
+        }
+
+        public async Task<(List<Cine> Items, int Total)> SearchCineAsync(int? categoryId, int? year, int pageNumber,int pageSize)
+        {
+            var query = _dbSet.AsQueryable();
+
+            if (year.HasValue)
+                query = query.Where(c => c.Year == year.Value);
+
+            if (categoryId.HasValue)
+                query = query.Where(c =>
+                    c.CineCategories.Any(cc => cc.CategoriesId == categoryId.Value));
+
+            var total = await query.CountAsync();
+
+            var items = await query
+                .OrderBy(c => c.Name)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return (items, total);
         }
     }
 }

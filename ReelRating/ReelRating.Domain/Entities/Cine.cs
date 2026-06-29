@@ -15,5 +15,7 @@ namespace ReelRating.Domain.Entities
         public int? WhatchId { get; set; }
         public int? TypeId { get; set; }
         public string? URLPoster { get; set; }
+        public ICollection<CineCategories> CineCategories { get; set; } = [];
+
     }
 }

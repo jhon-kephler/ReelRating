@@ -17,16 +17,14 @@ namespace ReelRating.Application.Services.CineServices
         private readonly IMapper _mapper;
         private readonly IListCineByYear _listCineByYear;
         private readonly IGetCineByNameQuery _getCineByNameQuery;
-        private readonly IListCineCategoriesByIdQuery _listCineCategoriesByIdQuery;
-        private readonly IListCineByListIdQuery _listCineByListIdQuery;
+        private readonly IListCineByCategoriesAndYear _listCineByCategoriesAndYear;
 
-        public SearchCineService(IMapper mapper, IListCineByYear listCineByYear, IGetCineByNameQuery getCineByNameQuery, IListCineCategoriesByIdQuery listCineCategoriesByIdQuery, IListCineByListIdQuery listCineByListIdQuery)
+        public SearchCineService(IMapper mapper, IListCineByYear listCineByYear, IGetCineByNameQuery getCineByNameQuery, IListCineByCategoriesAndYear listCineByCategoriesAndYear)
         {
             _mapper = mapper;
             _listCineByYear = listCineByYear;
             _getCineByNameQuery = getCineByNameQuery;
-            _listCineCategoriesByIdQuery = listCineCategoriesByIdQuery;
-            _listCineByListIdQuery = listCineByListIdQuery;
+            _listCineByCategoriesAndYear = listCineByCategoriesAndYear;
         }
 
         public async Task<PaginationResult<CineResponse>> SearchCineDefault(ListCineDefaultRequest request)
@@ -34,18 +32,11 @@ namespace ReelRating.Application.Services.CineServices
             var result = new PaginationResult<CineResponse>();
             try
             {
-                var cine = await _listCineByYear.ListCineByYearAsync(DateTime.Now.Year);
+                var cine = await _listCineByYear.ListCineByYearAsync(DateTime.Now.Year, request.PageNumber, request.PageSize);
 
-                var totalItems = cine.Count;
+                var mapped = _mapper.Map<List<CineResponse>>(cine);
 
-                var paged = cine
-                    .Skip((request.PageNumber - 1) * request.PageSize)
-                    .Take(request.PageSize)
-                    .ToList();
-
-                var mapped = _mapper.Map<List<CineResponse>>(paged);
-
-                result.SetSuccess(mapped, request.PageNumber, request.PageSize, totalItems);
+                result.SetSuccess(mapped, request.PageNumber, request.PageSize, cine.Count);
             }
             catch (Exception ex)
             {
@@ -60,38 +51,13 @@ namespace ReelRating.Application.Services.CineServices
 
             try
             {
-                List<Cine> cine;
+                (List<Cine> Items, int Total) cine;
 
-                if (request.CategoriesId.HasValue)
-                {
-                    var cineCategories = await _listCineCategoriesByIdQuery
-                        .ListCineCategoriesByIdAsync(request.CategoriesId.Value);
+                cine = await _listCineByCategoriesAndYear.ListCineByCategoriesAndYearAsync(request.CategoriesId, request.Year, request.PageNumber, request.PageSize);
+            
+                var mapped = _mapper.Map<List<CineResponse>>(cine.Items);
 
-                    var cineIds = cineCategories
-                        .Select(c => c.CineId)
-                        .Distinct()
-                        .ToList();
-
-                    cine = await _listCineByListIdQuery.ListCineByListIdAsync(cineIds);
-                }
-                else
-                {
-                    cine = await _listCineByYear.ListCineByYearAsync(request.Year.Value);
-                }
-
-                if (request.Year.HasValue)
-                    cine = cine.Where(c => c.Year == request.Year.Value).ToList();
-
-                var totalItems = cine.Count;
-
-                var paged = cine
-                    .Skip((request.PageNumber - 1) * request.PageSize)
-                    .Take(request.PageSize)
-                    .ToList();
-
-                var mapped = _mapper.Map<List<CineResponse>>(paged);
-
-                result.SetSuccess(mapped, request.PageNumber, request.PageSize, totalItems);
+                result.SetSuccess(mapped, request.PageNumber, request.PageSize, cine.Total);
             }
             catch (Exception ex)
             {

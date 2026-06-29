@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using ReelRating.Application.Services.AuthServices.Interfaces;
 using ReelRating.Core.Schema;
 using ReelRating.Core.Schema.AuthSchema;
@@ -14,12 +15,14 @@ namespace ReelRating.Application.Services.AuthServices
         private readonly IMapper _mapper;
         private readonly IGetCustomerQuery _getCustomerQuery;
         private readonly ITokenService _tokenService;
+        private readonly IConfiguration _config;
 
-        public SearchAuthService(IMapper mapper, IGetCustomerQuery getCustomerQuery, ITokenService tokenService)
+        public SearchAuthService(IMapper mapper, IGetCustomerQuery getCustomerQuery, ITokenService tokenService, IConfiguration config)
         {
             _mapper = mapper;
             _getCustomerQuery = getCustomerQuery;
             _tokenService = tokenService;
+            _config = config;
         }
 
         public async Task<Result<AuthUserResponse>> SignInAsync(SignInRequest request)
@@ -53,11 +56,13 @@ namespace ReelRating.Application.Services.AuthServices
 
         private AuthUserResponse BuildResponse(Customer user)
         {
+            var expireMinutes = double.Parse(_config["Jwt:ExpireMinutes"]!);
+
             return new AuthUserResponse
             {
                 User = _mapper.Map<UserInfo>(user),
                 AccessToken = _tokenService.GenerateToken(user),
-                ExpiresAt = DateTime.UtcNow.AddMinutes(30)
+                ExpiresAt = DateTime.UtcNow.AddMinutes(expireMinutes)
             };
         }
     }
