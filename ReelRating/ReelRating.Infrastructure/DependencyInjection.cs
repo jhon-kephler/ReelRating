@@ -10,8 +10,10 @@ using ReelRating.Application.Services.HomeServices.Interfaces;
 using ReelRating.Data;
 using ReelRating.Data.Command.AuthCommand;
 using ReelRating.Data.Query.AuthQuery;
+using ReelRating.Data.Query.CineQuery;
 using ReelRating.Data.Query.FiltersQuery;
 using ReelRating.Data.Repositories;
+using ReelRating.Domain.Repositories;
 using ReelRating.Domain.Repository;
 using System.Text;
 
@@ -86,8 +88,11 @@ namespace ReelRating.Infrastructure
 
         private static IServiceCollection AddRepository(this IServiceCollection services)
         {
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(DbContext), typeof(ReelRatingContext));
+
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(ICineRepository), typeof(CineRepository));
+        
             return services;
         }
         
@@ -105,6 +110,7 @@ namespace ReelRating.Infrastructure
         {
             services.AddScoped<IGetListCategories, GetListCategoriesQuery>();
             services.AddScoped<IGetCustomerQuery, GetCustomerQuery>();
+            services.AddScoped<IGetListYearQuery, GetListYearQuery>();
 
             return services;
         }   

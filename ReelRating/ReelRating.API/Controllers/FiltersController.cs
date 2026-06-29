@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ReelRating.Core.Schema;
+using ReelRating.Core.Schema.FiltersSchema.Request;
 using ReelRating.Core.Schema.HomeSchema.Request;
 using ReelRating.Core.Schema.HomeSchema.Response;
 
@@ -22,6 +23,7 @@ namespace ReelRating.API.Controllers
             _mediator = mediator;
         }
 
+        [AllowAnonymous]
         [HttpGet("Categories")]
         public async Task<IActionResult> GetCategories([FromQuery] CategoriesRequest request)
         {
@@ -32,8 +34,15 @@ namespace ReelRating.API.Controllers
             return Ok(result);
         }
 
-        //[HttpGet("Year")]
-        //public Task<Result<string>> GetYear() =>
-        //    _mediator.Send();
+        [AllowAnonymous]
+        [HttpGet("Year")]
+        public async Task<IActionResult> GetYear([FromQuery] YearRequest request)
+        {
+            var result = await _mediator.Send(request);
+            if (!result.IsSuccess)
+                return StatusCode(result.StatusCode, new { error = result.ErrorMessage });
+
+            return Ok(result);
+        }
     }
 }

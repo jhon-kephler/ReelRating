@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReelRating.Core.Schema;
 using ReelRating.Core.Schema.AuthSchema.Request;
@@ -18,6 +19,8 @@ namespace ReelRating.API.Controllers
             _logger = logger;
             _mediator = mediator;
         }
+
+        [AllowAnonymous]
         [HttpPost("SignIn")]
         public async Task<IActionResult> PostSignIn([FromBody] SignInRequest request)
         {
@@ -29,6 +32,7 @@ namespace ReelRating.API.Controllers
             return Ok(result);
         }
 
+        [AllowAnonymous]
         [HttpPost("Create")]
         public async Task<IActionResult> PostCreate([FromBody] CreateRequest request)
         {
