@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ReelRating.Domain.Repository;
+using System.Linq.Expressions;
 
 namespace ReelRating.Data.Repositories
 {
@@ -11,7 +12,7 @@ namespace ReelRating.Data.Repositories
         public Repository(DbContext dbContext)
         {
             _dbContext = dbContext;
-            _dbSet = _dbSet = dbContext.Set<T>();
+            _dbSet = dbContext.Set<T>();
         }
 
         public void Add(T entity)
@@ -23,28 +24,23 @@ namespace ReelRating.Data.Repositories
         public void Update(int id, T entity)
         {
             var existingEntity = _dbSet.Find(id);
-            if (existingEntity != null)
-            {
-                var properties = typeof(T).GetProperties();
-                foreach (var property in properties)
-                {
-                    var newValue = property.GetValue(entity);
-                    var oldValue = property.GetValue(existingEntity);
-                    var propertyName = property.Name; // Obtém o nome da propriedade
+            if (existingEntity == null) return;
 
-                    // Verifica se o novo valor não é nulo e é diferente do valor existente
-                    if (newValue != null && !newValue.Equals(oldValue))
-                    {
-                        // Verifica se o novo valor não é zero (para tipos numéricos)
-                        if (!IsZero(newValue))
-                        {
-                            property.SetValue(existingEntity, newValue);
-                            _dbContext.Entry(existingEntity).Property(propertyName).IsModified = true;
-                        }
-                    }
-                }
-                _dbContext.SaveChanges();
+            var properties = typeof(T).GetProperties();
+            foreach (var property in properties)
+            {
+                if (!property.CanWrite) continue;
+
+                var newValue = property.GetValue(entity);
+                var oldValue = property.GetValue(existingEntity);
+
+                if (newValue == null || Equals(newValue, oldValue) || IsZero(newValue))
+                    continue;
+
+                property.SetValue(existingEntity, newValue);
+                _dbContext.Entry(existingEntity).Property(property.Name).IsModified = true;
             }
+            _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
@@ -62,6 +58,26 @@ namespace ReelRating.Data.Repositories
         }
 
         public IEnumerable<T> GetAll() => _dbSet.ToList();
+
+        public IEnumerable<T> GetAllPagination(int pageNumber, int pageSize)
+        {
+            if (pageNumber < 1) pageNumber = 1;
+            if (pageSize < 1) pageSize = 10;
+
+            return _dbSet.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+        }
+
+        public async Task<IEnumerable<T>> ListAllByIdPaginationAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbSet.Where(predicate).ToListAsync();
+        }
+
+        public async Task<T?> GetAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbSet.FirstOrDefaultAsync(predicate);
+        }
+
+
 
         private bool IsZero(object value)
         {

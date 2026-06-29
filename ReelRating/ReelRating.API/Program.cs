@@ -1,23 +1,66 @@
-using ReelRating.Infrastructure;
+using Microsoft.OpenApi;
+using ReelRating.Infrastructure.Authentication;
+using ReelRating.Infrastructure.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+
+builder.Services.Configure<JwtSettings>(
+    builder.Configuration.GetSection("Jwt"));
+
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("authentication", new OpenApiInfo
+    {
+        Title = "Authentication API",
+        Version = "v1"
+    });
+
+    c.SwaggerDoc("cine", new OpenApiInfo
+    {
+        Title = "Cine API",
+        Version = "v1"
+    });
+
+    c.SwaggerDoc("filters", new OpenApiInfo
+    {
+        Title = "Filters API",
+        Version = "v1"
+    });
+
+    c.DocInclusionPredicate((documentName, apiDescription) =>
+    {
+        return string.Equals(
+            apiDescription.GroupName,
+            documentName,
+            StringComparison.OrdinalIgnoreCase);
+    });
+});
+
 builder.Services.AddApplication(builder.Configuration);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/authentication/swagger.json", "Authentication API");
+        c.SwaggerEndpoint("/swagger/cine/swagger.json", "Cine API");
+        c.SwaggerEndpoint("/swagger/filters/swagger.json", "Filters API");
+
+        c.RoutePrefix = "swagger";
+    });
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

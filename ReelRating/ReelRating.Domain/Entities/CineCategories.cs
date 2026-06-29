@@ -5,9 +5,9 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ReelRating.Domain.Entities
 {
-    public class Cine_Categories
+    public class CineCategories
     {
-        private int Cine_Id { get; set; }
-        private int Categories_Id { get; set; }
+        public int CineId { get; set; }
+        public int CategoriesId { get; set; }
     }
 }
