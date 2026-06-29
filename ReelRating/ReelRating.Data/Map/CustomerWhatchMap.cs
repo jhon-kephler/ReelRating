@@ -4,7 +4,7 @@ using ReelRating.Domain.Entities;
 
 namespace ReelRating.Data.Map
 {
-    public class Customer_WhatchMap : IEntityTypeConfiguration<CustomerWhatch>
+    public class CustomerWhatchMap : IEntityTypeConfiguration<CustomerWhatch>
     {
         public void Configure(EntityTypeBuilder<CustomerWhatch> builder)
         {

@@ -4,7 +4,7 @@ using ReelRating.Domain.Entities;
 
 namespace ReelRating.Data.Map
 {
-    public class Average_HoursMap : IEntityTypeConfiguration<AverageHours>
+    public class AverageHoursMap : IEntityTypeConfiguration<AverageHours>
     {
         public void Configure(EntityTypeBuilder<AverageHours> builder)
         {

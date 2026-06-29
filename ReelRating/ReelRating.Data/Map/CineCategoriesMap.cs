@@ -4,7 +4,7 @@ using ReelRating.Domain.Entities;
 
 namespace ReelRating.Data.Map
 {
-    public class Cine_CategoriesMap : IEntityTypeConfiguration<CineCategories>
+    public class CineCategoriesMap : IEntityTypeConfiguration<CineCategories>
     {
         public void Configure(EntityTypeBuilder<CineCategories> builder)
         {
