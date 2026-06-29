@@ -67,6 +67,11 @@ namespace ReelRating.Data.Repositories
             return _dbSet.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
         }
 
+        public async Task<IEnumerable<T>> ListAllByIdPaginationAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbSet.Where(predicate).ToListAsync();
+        }
+
         public async Task<T?> GetAsync(Expression<Func<T, bool>> predicate)
         {
             return await _dbSet.FirstOrDefaultAsync(predicate);

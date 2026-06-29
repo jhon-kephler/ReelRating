@@ -10,17 +10,17 @@ using ReelRating.Data.Query.FiltersQuery;
 
 namespace ReelRating.Application.Services.HomeServices
 {
-    public class SearchFiltersServices : ISearchFiltersServices
+    public class SearchFiltersService : ISearchFiltersServices
     {
         public readonly IMapper _mapper;
-        public readonly IGetListCategories _getListCategories;
-        public readonly IGetListYearQuery _getListYearQuery;
+        public readonly IListCategories _listCategories;
+        public readonly IListYearQuery _listYearQuery;
 
-        public SearchFiltersServices(IMapper mapper, IGetListCategories getListCategories, IGetListYearQuery getListYearQuery)
+        public SearchFiltersService(IMapper mapper, IListCategories listCategories, IListYearQuery listYearQuery)
         {
             _mapper = mapper;
-            _getListCategories = getListCategories;
-            _getListYearQuery = getListYearQuery;
+            _listCategories = listCategories;
+            _listYearQuery = listYearQuery;
         }
 
         public async Task<PaginationResult<CategoriesResponse>> GetCategories(CategoriesRequest request)
@@ -28,7 +28,7 @@ namespace ReelRating.Application.Services.HomeServices
             var result = new PaginationResult<CategoriesResponse>();
             try
             {
-                var categories = _mapper.Map<List<CategoriesResponse>>(await _getListCategories.GetAllAsync(request.PageNumber, request.PageSize));
+                var categories = _mapper.Map<List<CategoriesResponse>>(await _listCategories.GetAllAsync(request.PageNumber, request.PageSize));
                 result.SetSuccess(categories, request.PageNumber, request.PageSize, request.TotalItems);
             }
             catch (Exception ex)
@@ -43,7 +43,7 @@ namespace ReelRating.Application.Services.HomeServices
             var result = new PaginationResult<int?>();
             try
             {
-                var years = await _getListYearQuery.GetAllYearAsync(request.PageNumber, request.PageSize);
+                var years = await _listYearQuery.GetAllYearAsync(request.PageNumber, request.PageSize);
                 result.SetSuccess(years, request.PageNumber, request.PageSize, request.TotalItems);
             }
             catch (Exception ex)

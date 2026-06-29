@@ -6,13 +6,13 @@ using System.Text;
 
 namespace ReelRating.Data.Query.CineQuery
 {
-    public interface IGetListYearQuery { Task<List<int?>> GetAllYearAsync(int pageNumber, int pageSize); }
+    public interface IListYearQuery { Task<List<int?>> GetAllYearAsync(int pageNumber, int pageSize); }
 
-    public class GetListYearQuery : IGetListYearQuery
+    public class ListYearQuery : IListYearQuery
     {
         private readonly ICineRepository _repository;
 
-        public GetListYearQuery(ICineRepository repository)
+        public ListYearQuery(ICineRepository repository)
         {
             _repository = repository;
         }

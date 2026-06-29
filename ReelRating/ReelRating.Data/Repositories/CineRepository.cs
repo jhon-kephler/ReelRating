@@ -24,5 +24,33 @@ namespace ReelRating.Data.Repositories
                 .Take(pageSize)
                 .ToListAsync();
         }
+
+        public async Task<Cine?> GetCineByNameAsync(string cine)
+        {
+            return await _dbSet
+                            .Where(c => c.Name == cine)
+                            .FirstOrDefaultAsync();
+        }
+
+        public async Task<List<Cine>> ListCineByYearAsync(int year, int pageNumber, int pageSize)
+        {
+            return await _dbSet
+                .Where(c => c.Year == year)
+                .OrderBy(c => c.Name)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+        }
+
+        public async Task<List<Cine>> ListCineByIdsAsync(List<int> ids)
+        {
+            if (ids == null || ids.Count == 0)
+                return new List<Cine>();
+
+            return await _dbSet
+                .Where(c => ids.Contains(c.Id))
+                .OrderBy(c => c.Name)
+                .ToListAsync();
+        }
     }
 }

@@ -3,13 +3,13 @@ using ReelRating.Domain.Repository;
 
 namespace ReelRating.Data.Query.FiltersQuery
 {
-    public interface IGetListCategories { Task<List<Categories>> GetAllAsync(int pageNumber, int pageSize); }
+    public interface IListCategories { Task<List<Categories>> GetAllAsync(int pageNumber, int pageSize); }
 
-    public class GetListCategoriesQuery : IGetListCategories
+    public class ListCategoriesQuery : IListCategories
     {
         private IRepository<Categories> _repository;
 
-        public GetListCategoriesQuery(IRepository<Categories> repository)
+        public ListCategoriesQuery(IRepository<Categories> repository)
         {
             _repository = repository;
         }

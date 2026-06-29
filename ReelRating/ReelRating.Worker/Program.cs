@@ -1,4 +1,4 @@
-using ReelRating.Infrastructure;
+using ReelRating.Infrastructure.DependencyInjection;
 using ReelRating.Worker;
 
 var builder = Host.CreateApplicationBuilder(args);

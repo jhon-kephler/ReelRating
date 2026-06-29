@@ -11,7 +11,8 @@ namespace ReelRating.API.Controllers
 {
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
+    [ApiExplorerSettings(GroupName = "filters")]
     public class FiltersController : Controller
     {
         private readonly ILogger<FiltersController> _logger;

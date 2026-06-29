@@ -8,7 +8,8 @@ using ReelRating.Core.Schema.HomeSchema.Request;
 namespace ReelRating.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
+    [ApiExplorerSettings(GroupName = "authentication")]
     public class AuthController : Controller
     {
         private readonly ILogger<AuthController> _logger;
