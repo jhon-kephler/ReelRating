@@ -34,11 +34,18 @@ namespace ReelRating.Application.Services.CineServices
             var result = new PaginationResult<CineResponse>();
             try
             {
-                var cine = await _listCineByYear.ListCineByYearAsync(DateTime.Now.Year, request.PageNumber, request.PageSize);
+                var cine = await _listCineByYear.ListCineByYearAsync(DateTime.Now.Year);
 
-                var mapped = _mapper.Map<List<CineResponse>>(cine);
+                var totalItems = cine.Count;
 
-                result.SetSuccess(mapped, request.PageNumber, request.PageSize, request.TotalItems);
+                var paged = cine
+                    .Skip((request.PageNumber - 1) * request.PageSize)
+                    .Take(request.PageSize)
+                    .ToList();
+
+                var mapped = _mapper.Map<List<CineResponse>>(paged);
+
+                result.SetSuccess(mapped, request.PageNumber, request.PageSize, totalItems);
             }
             catch (Exception ex)
             {
@@ -46,29 +53,41 @@ namespace ReelRating.Application.Services.CineServices
             }
             return await Task.FromResult(result);
         }
+
         public async Task<PaginationResult<CineResponse>> SearchCineByFilters(ListCineByFiltersRequest request)
         {
             var result = new PaginationResult<CineResponse>();
 
             try
             {
-                List<int> cineIds = new();
+                List<Cine> cine;
 
                 if (request.CategoriesId.HasValue)
                 {
-                    var cineCategories = await _listCineCategoriesByIdQuery.ListCineCategoriesByIdAsync(request.CategoriesId.Value);
+                    var cineCategories = await _listCineCategoriesByIdQuery
+                        .ListCineCategoriesByIdAsync(request.CategoriesId.Value);
 
-                    cineIds = cineCategories.Select(c => c.CineId) .Distinct() .ToList();
+                    var cineIds = cineCategories
+                        .Select(c => c.CineId)
+                        .Distinct()
+                        .ToList();
+
+                    cine = await _listCineByListIdQuery.ListCineByListIdAsync(cineIds);
                 }
-
-                var cine = await _listCineByListIdQuery.ListCineByListIdAsync(cineIds);
+                else
+                {
+                    cine = await _listCineByYear.ListCineByYearAsync(request.Year.Value);
+                }
 
                 if (request.Year.HasValue)
                     cine = cine.Where(c => c.Year == request.Year.Value).ToList();
 
                 var totalItems = cine.Count;
 
-                var paged = cine.Skip((request.PageNumber - 1) * request.PageSize).Take(request.PageSize).ToList();
+                var paged = cine
+                    .Skip((request.PageNumber - 1) * request.PageSize)
+                    .Take(request.PageSize)
+                    .ToList();
 
                 var mapped = _mapper.Map<List<CineResponse>>(paged);
 
@@ -89,7 +108,7 @@ namespace ReelRating.Application.Services.CineServices
             {
                 var cine = await _getCineByNameQuery.GetCineByNameAsync(request.Name);
                 if(cine == null)
-                    throw new Exception($"Cine with name '{cine}' not found.");
+                    throw new Exception($"Cine with name '{request.Name}' not found.");
 
                 result.SetSuccess(_mapper.Map<CineResponse>(cine));
             }

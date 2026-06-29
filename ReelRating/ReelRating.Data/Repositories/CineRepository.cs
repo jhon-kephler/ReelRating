@@ -32,13 +32,11 @@ namespace ReelRating.Data.Repositories
                             .FirstOrDefaultAsync();
         }
 
-        public async Task<List<Cine>> ListCineByYearAsync(int year, int pageNumber, int pageSize)
+        public async Task<List<Cine>> ListCineByYearAsync(int year)
         {
             return await _dbSet
                 .Where(c => c.Year == year)
                 .OrderBy(c => c.Name)
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
                 .ToListAsync();
         }
 

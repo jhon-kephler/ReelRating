@@ -10,7 +10,7 @@ namespace ReelRating.Domain.Repositories
     {
         Task<List<int?>> GetCineYearsAsync(int pageNumber, int pageSize);
         Task<Cine> GetCineByNameAsync(string cine);
-        Task<List<Cine>> ListCineByYearAsync(int year, int pageNumber, int pageSize);
+        Task<List<Cine>> ListCineByYearAsync(int year);
         Task<List<Cine>> ListCineByIdsAsync(List<int> ids);
     }
 }
