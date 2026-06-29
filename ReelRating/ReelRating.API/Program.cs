@@ -1,4 +1,5 @@
 using Microsoft.OpenApi;
+using Microsoft.OpenApi.Models;
 using ReelRating.Infrastructure.Authentication;
 using ReelRating.Infrastructure.DependencyInjection;
 
@@ -7,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.Configure<JwtSettings>(
-    builder.Configuration.GetSection("Jwt"));
+    builder.Configuration.GetSection("Jwt")
+);
 
 builder.Services.AddEndpointsApiExplorer();
 
@@ -32,11 +34,32 @@ builder.Services.AddSwaggerGen(c =>
     });
 
     c.DocInclusionPredicate((documentName, apiDescription) =>
+        string.Equals(apiDescription.GroupName, documentName, StringComparison.OrdinalIgnoreCase)
+    );
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        return string.Equals(
-            apiDescription.GroupName,
-            documentName,
-            StringComparison.OrdinalIgnoreCase);
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Digite: Bearer {seu token JWT}"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
     });
 });
 
