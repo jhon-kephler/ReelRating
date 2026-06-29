@@ -10,8 +10,7 @@ namespace ReelRating.Infrastructure.DependencyInjection
             services.Scan(scan => scan
                     .FromAssemblyOf<IListYearQuery>()
                     .AddClasses(classes => classes.Where(t =>
-                        t.Name.EndsWith("Query") ||
-                        t.Name.EndsWith("AndYear")))
+                        t.Name.EndsWith("Query")))
                     .AsImplementedInterfaces()
                     .WithScopedLifetime());
 
