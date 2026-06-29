@@ -11,6 +11,7 @@ namespace ReelRating.Domain.Entities
         public string Name { get; set; }
         public int? Year { get; set; }
         public int? Month { get; set; }
+        public int? TmdbId { get; set; }
         public int? WhatchId { get; set; }
         public int? TypeId { get; set; }
         public string? URLPoster { get; set; }

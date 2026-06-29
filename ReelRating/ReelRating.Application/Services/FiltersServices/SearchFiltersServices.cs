@@ -29,7 +29,7 @@ namespace ReelRating.Application.Services.HomeServices
             try
             {
                 var categories = _mapper.Map<List<CategoriesResponse>>(await _getListCategories.GetAllAsync(request.PageNumber, request.PageSize));
-                result.SetSuccess(categories, request.PageSize, request.TotalPages, request.TotalItems);
+                result.SetSuccess(categories, request.PageNumber, request.PageSize, request.TotalItems);
             }
             catch (Exception ex)
             {
@@ -44,7 +44,7 @@ namespace ReelRating.Application.Services.HomeServices
             try
             {
                 var years = await _getListYearQuery.GetAllYearAsync(request.PageNumber, request.PageSize);
-                result.SetSuccess(years, request.PageSize, request.TotalPages, request.TotalItems);
+                result.SetSuccess(years, request.PageNumber, request.PageSize, request.TotalItems);
             }
             catch (Exception ex)
             {

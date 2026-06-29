@@ -13,8 +13,10 @@ namespace ReelRating.Data.Map
             builder.Property(x => x.Id).HasColumnName("ID");
             builder.Property(x => x.Name).HasColumnName("NAME").HasMaxLength(200).IsRequired();
             builder.HasIndex(x => x.Name).HasDatabaseName("IDX_CINE_NAME");
-            builder.Property(x => x.Year).HasColumnName("YEAR").HasColumnType("NUMBER(4)");
-            builder.Property(x => x.Month).HasColumnName("MONTH").HasColumnType("NUMBER(2)");
+            builder.Property(x => x.Year).HasColumnName("YEAR");
+            builder.Property(x => x.Month).HasColumnName("MONTH");
+            builder.Property(x => x.TmdbId).HasColumnName("TMDBID");
+            builder.HasIndex(x => x.TmdbId).IsUnique();
             builder.Property(x => x.WhatchId).HasColumnName("WHATCH_ID");
             builder.Property(x => x.TypeId).HasColumnName("TYPE_ID");
             builder.Property(x => x.URLPoster).HasColumnName("URL_POSTER").HasMaxLength(500);

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using ReelRating.Application.Services.AuthServices;
 using ReelRating.Application.Services.AuthServices.Interfaces;
@@ -15,6 +16,9 @@ using ReelRating.Data.Query.FiltersQuery;
 using ReelRating.Data.Repositories;
 using ReelRating.Domain.Repositories;
 using ReelRating.Domain.Repository;
+using ReelRating.Domain.Services;
+using ReelRating.Infrastructure.Options;
+using ReelRating.Infrastructure.Services;
 using System.Text;
 
 namespace ReelRating.Infrastructure
@@ -34,7 +38,16 @@ namespace ReelRating.Infrastructure
             return services;
         }
 
-        public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddWorker(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddContext(configuration);
+            services.AddRepository();
+            services.AddTmdb(configuration);
+
+            return services;
+        }
+
+        private static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
         {
             var jwt = configuration.GetSection("Jwt");
 
@@ -61,16 +74,7 @@ namespace ReelRating.Infrastructure
             return services;
         }
 
-        public static IServiceCollection AddWorker(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddContext(configuration);
-            services.AddRepository();
-            services.AddHandler();
-
-            return services;
-        }
-
-        public static IServiceCollection AddContext(this IServiceCollection services, IConfiguration configuration)
+        private static IServiceCollection AddContext(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ReelRatingContext>(options =>
                 options.UseOracle(configuration.GetConnectionString("DefaultConnection")));
@@ -95,7 +99,7 @@ namespace ReelRating.Infrastructure
         
             return services;
         }
-        
+
         private static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddScoped<ITokenService, TokenService>();
@@ -118,6 +122,31 @@ namespace ReelRating.Infrastructure
         private static IServiceCollection AddCommand(this IServiceCollection services)
         {
             services.AddScoped<ICreateCommand, CreateCommand>();
+            return services;
+        }
+
+        private static IServiceCollection AddTmdb(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddMemoryCache();
+
+            services.AddOptions<TmdbOptions>()
+                .Bind(configuration.GetSection(TmdbOptions.SectionName))
+                .Validate(options =>
+                        !string.IsNullOrWhiteSpace(options.ApiKey) &&
+                        !string.IsNullOrWhiteSpace(options.BaseUrl) &&
+                        !string.IsNullOrWhiteSpace(options.ImageBaseUrl) &&
+                        options.SyncIntervalMinutes > 0,
+                    "A configuração do TMDb está inválida.")
+                .ValidateOnStart();
+
+            services.AddHttpClient("Tmdb", (provider, client) =>
+            {
+                var options = provider.GetRequiredService<IOptions<TmdbOptions>>().Value;
+                client.BaseAddress = new Uri(options.BaseUrl.TrimEnd('/') + "/");
+            });
+
+            services.AddScoped<ITmdbService, TmdbService>();
+
             return services;
         }
 
