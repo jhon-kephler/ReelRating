@@ -96,7 +96,7 @@ namespace ReelRating.Application.Services.ReviewServices
                     return result;
                 }
 
-                review.Deleted = request.Deleted;
+                review.Deleted = true;
 
                 await _updateReviewCommand.UpdateReview(request.Id, review);
 
@@ -126,6 +126,7 @@ namespace ReelRating.Application.Services.ReviewServices
             }
             catch (Exception ex)
             {
+                throw new Exception($"An error occurred during the validation: {ex.Message}");
             }
             return result;
         }

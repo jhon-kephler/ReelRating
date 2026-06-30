@@ -15,6 +15,7 @@ namespace ReelRating.Infrastructure.DependencyInjection
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(ICineRepository), typeof(CineRepository));
+            services.AddScoped(typeof(IReviewRepository), typeof(ReviewRepository));
 
             return services;
         }

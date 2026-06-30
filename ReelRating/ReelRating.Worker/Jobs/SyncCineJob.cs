@@ -6,7 +6,7 @@ using ReelRating.Domain.Services;
 using ReelRating.Infrastructure.Options;
 using System.Globalization;
 
-namespace ReelRating.Worker
+namespace ReelRating.Worker.Jobs
 {
     public class SyncCineJob : BackgroundService
     {
@@ -222,7 +222,7 @@ namespace ReelRating.Worker
 
         private Dictionary<int, int> BuildGenreMappings(
             IReadOnlyCollection<Categories> categories,
-            IReadOnlyCollection<ReelRating.Domain.Services.Models.TmdbGenre> tmdbGenres)
+            IReadOnlyCollection<Domain.Services.Models.TmdbGenre> tmdbGenres)
         {
             var categoriesByName = categories
                 .GroupBy(c => Normalize(c.Name))

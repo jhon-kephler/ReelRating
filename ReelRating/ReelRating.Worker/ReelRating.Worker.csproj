@@ -14,8 +14,4 @@
   <ItemGroup>
     <ProjectReference Include="..\ReelRating.Infrastructure\ReelRating.Infrastructure.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Jobs\" />
-  </ItemGroup>
 </Project>

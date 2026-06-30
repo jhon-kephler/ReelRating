@@ -9,7 +9,8 @@ namespace ReelRating.Data.Query.AuthQuery
     public interface IGetCustomerQuery 
     { 
         Task<Customer> GetByUserAsync(string user);
-        Task<Customer?> GetByEmailAsync(string email); 
+        Task<Customer?> GetByEmailAsync(string email);
+        Task<Customer?> GetByNickNameAsync(string name);
     }
 
     public class GetCustomerQuery : IGetCustomerQuery
@@ -32,6 +33,13 @@ namespace ReelRating.Data.Query.AuthQuery
         {
             var result = new Customer();
             result = await _repository.GetAsync(x => x.Email == email);
+            return result;
+        }
+
+        public async Task<Customer?> GetByNickNameAsync(string name)
+        {
+            var result = new Customer();
+            result = await _repository.GetAsync(x => x.Nickname == name);
             return result;
         }
     }

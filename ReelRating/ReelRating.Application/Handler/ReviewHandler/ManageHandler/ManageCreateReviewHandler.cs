@@ -7,13 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ReelRating.Application.Handler.ReviewHandler.ManageHandler
+namespace ReelRating.Application.Handler.ReviewHandler.SearchHandler
 {
-    public class SearchReviewHandler : IRequestHandler<CreateReviewRequest, Result<bool>>
+    public class CreateReviewHandler : IRequestHandler<CreateReviewRequest, Result<bool>>
     {
         private readonly IManageReviewService _manageReviewService;
 
-        public SearchReviewHandler(IManageReviewService manageReviewService)
+        public CreateReviewHandler(IManageReviewService manageReviewService)
         {
             _manageReviewService = manageReviewService;
         }

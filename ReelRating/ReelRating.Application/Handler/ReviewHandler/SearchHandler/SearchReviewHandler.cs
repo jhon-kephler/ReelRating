@@ -1,12 +1,8 @@
 ﻿using MediatR;
 using ReelRating.Application.Services.ReviewServices.Interfaces;
 using ReelRating.Core.Schema;
-using ReelRating.Core.Schema.AuthSchema.Request;
 using ReelRating.Core.Schema.ReviewSchema.Request;
 using ReelRating.Core.Schema.ReviewSchema.Response;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ReelRating.Application.Handler.ReviewHandler.SearchHandler
 {

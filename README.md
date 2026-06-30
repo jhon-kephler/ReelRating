@@ -207,7 +207,6 @@ Obtenha sua API Key gratuitamente em: https://www.themoviedb.org/settings/api
 ## 🗺️ Roadmap
 
 - [ ] Frontend web (React ou Angular)
-- [ ] Sistema de reviews e avaliações
 - [ ] Favoritos por usuário
 - [ ] Histórico de filmes assistidos
 - [ ] Recomendações baseadas em preferências
