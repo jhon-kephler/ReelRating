@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ReelRating.Domain.Entities
+namespace ReelRating.Core.Schema.ReviewSchema.Response
 {
-    public class Review
+    public class ReviewResponse
     {
         public int Id { get; set; }
         public int CustomerId { get; set; }

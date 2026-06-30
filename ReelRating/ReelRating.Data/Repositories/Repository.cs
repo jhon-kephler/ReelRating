@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ReelRating.Domain.Entities;
 using ReelRating.Domain.Repository;
 using System.Linq.Expressions;
 
@@ -52,6 +53,14 @@ namespace ReelRating.Data.Repositories
             if (pageSize < 1) pageSize = 10;
 
             return _dbSet.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+        }
+
+        public IEnumerable<T> GetAllByPredicatePagination(Expression<Func<T, bool>> predicate, int pageNumber, int pageSize)
+        {
+            if (pageNumber < 1) pageNumber = 1;
+            if (pageSize < 1) pageSize = 10;
+
+            return _dbSet.Where(predicate).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
         }
 
         public async Task<IEnumerable<T>> ListAllByIdPaginationAsync(Expression<Func<T, bool>> predicate)

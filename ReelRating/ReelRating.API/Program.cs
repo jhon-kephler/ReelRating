@@ -33,6 +33,12 @@ builder.Services.AddSwaggerGen(c =>
         Version = "v1"
     });
 
+    c.SwaggerDoc("review", new OpenApiInfo
+    {
+        Title = "Review API",
+        Version = "v1"
+    });
+
     c.DocInclusionPredicate((documentName, apiDescription) =>
         string.Equals(apiDescription.GroupName, documentName, StringComparison.OrdinalIgnoreCase)
     );
@@ -76,6 +82,7 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/authentication/swagger.json", "Authentication API");
         c.SwaggerEndpoint("/swagger/cine/swagger.json", "Cine API");
         c.SwaggerEndpoint("/swagger/filters/swagger.json", "Filters API");
+        c.SwaggerEndpoint("/swagger/review/swagger.json", "Review API");
 
         c.RoutePrefix = "swagger";
     });

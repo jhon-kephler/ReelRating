@@ -25,6 +25,18 @@ namespace ReelRating.Data.Repositories
                 .ToListAsync();
         }
 
+        public async Task<Cine> GetCineByIdAsync(int cineId)
+        {
+            var cine = await _dbSet
+                .FirstOrDefaultAsync(c => c.Id == cineId);
+
+            if (cine == null)
+            {
+                throw new Exception($"Cine with ID '{cineId}' not found.");
+            }
+            return cine;
+        }
+
         public async Task<Cine?> GetCineByNameAsync(string cine)
         {
             return await _dbSet

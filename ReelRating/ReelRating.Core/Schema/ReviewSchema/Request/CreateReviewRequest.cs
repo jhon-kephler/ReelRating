@@ -1,17 +1,16 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ReelRating.Domain.Entities
+namespace ReelRating.Core.Schema.ReviewSchema.Request
 {
-    public class Review
+    public class CreateReviewRequest : IRequest<Result<bool>>
     {
-        public int Id { get; set; }
         public int CustomerId { get; set; }
         public int CineId { get; set; }
-        public int? TypeId { get; set; }
+        public int TypeId { get; set; }
         public string? REVIEW { get; set; }
         public int? Note { get; set; }
-        public bool? Deleted { get; set; }
     }
 }

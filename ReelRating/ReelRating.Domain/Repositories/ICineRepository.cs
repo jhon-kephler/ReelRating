@@ -8,6 +8,7 @@ namespace ReelRating.Domain.Repositories
 {
     public interface ICineRepository : IRepository<Cine>
     {
+        Task<Cine> GetCineByIdAsync(int cineId);
         Task<List<int?>> GetCineYearsAsync(int pageNumber, int pageSize);
         Task<Cine> GetCineByNameAsync(string cine);
         Task<List<Cine>> ListCineByYearAsync(int year, int pageNumber, int pageSize);

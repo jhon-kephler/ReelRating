@@ -17,9 +17,9 @@ namespace ReelRating.Application.Services.CineServices
         private readonly IMapper _mapper;
         private readonly IListCineByYear _listCineByYear;
         private readonly IGetCineByNameQuery _getCineByNameQuery;
-        private readonly IListCineByCategoriesAndYear _listCineByCategoriesAndYear;
+        private readonly IListCineByCategoriesAndYearQuery _listCineByCategoriesAndYear;
 
-        public SearchCineService(IMapper mapper, IListCineByYear listCineByYear, IGetCineByNameQuery getCineByNameQuery, IListCineByCategoriesAndYear listCineByCategoriesAndYear)
+        public SearchCineService(IMapper mapper, IListCineByYear listCineByYear, IGetCineByNameQuery getCineByNameQuery, IListCineByCategoriesAndYearQuery listCineByCategoriesAndYear)
         {
             _mapper = mapper;
             _listCineByYear = listCineByYear;

@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using ReelRating.Data.Query.CineQuery;
 
 namespace ReelRating.Infrastructure.DependencyInjection
