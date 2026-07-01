@@ -9,7 +9,7 @@ using System.Text;
 
 namespace ReelRating.Application.Handler.ReviewHandler.SearchHandler
 {
-    public class CreateReviewHandler : IRequestHandler<CreateReviewRequest, Result<bool>>
+    public class CreateReviewHandler : IRequestHandler<CreateReviewRequest, Result>
     {
         private readonly IManageReviewService _manageReviewService;
 
@@ -17,7 +17,7 @@ namespace ReelRating.Application.Handler.ReviewHandler.SearchHandler
         {
             _manageReviewService = manageReviewService;
         }
-        public async Task<Result<bool>> Handle(CreateReviewRequest request, CancellationToken cancellationToken) =>
+        public async Task<Result> Handle(CreateReviewRequest request, CancellationToken cancellationToken) =>
                                 await _manageReviewService.CreateReview(request);
     }
 }

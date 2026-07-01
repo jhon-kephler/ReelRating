@@ -24,12 +24,12 @@ namespace ReelRating.Application.Services.CommentServices
             _getCommentByIdQuery = getCommentByIdQuery;
         }
 
-        public async Task<Result<CommentResponse>> SearchCommentById(SearchCommentByCustomerIdRequest request)
+        public async Task<Result<CommentResponse>> SearchCommentById(SearchCommentsByCustomerIdRequest request)
         {
             var result = new Result<CommentResponse>();
             try
             {
-                var comment = await _getCommentByIdQuery.GetReviewByIdAndCustomerId(request.Id, request.CustomerId);
+                var comment = await _getCommentByIdQuery.GetCommentByIdAndCustomerId(request.Id, request.CustomerId);
                 if (comment == null)
                 {
                     result.ValidateResult($"Comment with id '{request.Id}' not found.", 404);
@@ -43,12 +43,13 @@ namespace ReelRating.Application.Services.CommentServices
             }
             return result;
         }
+
         public async Task<Result<CommentResponse>> SearchCommentByIdAndCineId(SearchCommentByCustomerIdAndCineIdRequest request)
         {
             var result = new Result<CommentResponse>();
             try
             {
-                var comment = await _getCommentByIdQuery.GetReviewByIdAndCustomerIdAndCineId(request.Id, request.CustomerId, request.CineId);
+                var comment = await _getCommentByIdQuery.GetCommentByIdAndCustomerIdAndCineId(request.Id, request.CustomerId, request.CineId);
                 if (comment == null)
                 {
                     result.ValidateResult($"Comment with id '{request.Id}' not found.", 404);

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace ReelRating.Application.Handler.ReviewHandler.ManageHandler
 {
-    public class ManageDeleteReviewHandler : IRequestHandler<DeleteReviewRequest, Result<bool>>
+    public class ManageDeleteReviewHandler : IRequestHandler<DeleteReviewRequest, Result>
     {
         private readonly IManageReviewService _manageReviewService;
 
@@ -17,7 +17,7 @@ namespace ReelRating.Application.Handler.ReviewHandler.ManageHandler
             _manageReviewService = manageReviewService;
         }
 
-        public async Task<Result<bool>> Handle(DeleteReviewRequest request, CancellationToken cancellationToken) =>
+        public async Task<Result> Handle(DeleteReviewRequest request, CancellationToken cancellationToken) =>
                                 await _manageReviewService.DeleteReview(request);
     }
 }

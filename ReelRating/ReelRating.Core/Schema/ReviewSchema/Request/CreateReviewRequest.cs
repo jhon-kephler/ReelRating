@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ReelRating.Core.Schema.ReviewSchema.Request
 {
-    public class CreateReviewRequest : IRequest<Result<bool>>
+    public class CreateReviewRequest : IRequest<Result>
     {
         public int CustomerId { get; set; }
         public int CineId { get; set; }

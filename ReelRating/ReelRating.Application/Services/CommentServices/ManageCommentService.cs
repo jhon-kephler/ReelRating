@@ -5,9 +5,6 @@ using ReelRating.Core.Schema.CommentsSchema.Request;
 using ReelRating.Data.Command.CommentCommand;
 using ReelRating.Data.Query.CommetsQuery;
 using ReelRating.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ReelRating.Application.Services.CommentServices
 {
@@ -50,7 +47,7 @@ namespace ReelRating.Application.Services.CommentServices
             var result = new Result();
             try
             {
-                var comment = await _getCommentByIdQuery.GetReviewById(request.Id);
+                var comment = await _getCommentByIdQuery.GetCommentById(request.Id);
                 if (comment == null)
                 {
                     result.ValidateResult($"Comment with id '{request.Id}' not found.", 404);

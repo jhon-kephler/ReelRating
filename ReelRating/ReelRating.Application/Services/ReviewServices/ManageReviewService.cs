@@ -32,9 +32,9 @@ namespace ReelRating.Application.Services.ReviewServices
             _updateReviewCommand = updateReviewCommand;
         }
 
-        public async Task<Result<bool>> CreateReview(CreateReviewRequest request)
+        public async Task<Result> CreateReview(CreateReviewRequest request)
         {
-            var result = new Result<bool>();
+            var result = new Result();
 
             try
             {
@@ -56,9 +56,9 @@ namespace ReelRating.Application.Services.ReviewServices
             return result;
         }
 
-        public async Task<Result<bool>> UpdateReview(UpdateReviewRequest request)
+        public async Task<Result> UpdateReview(UpdateReviewRequest request)
         {
-            var result = new Result<bool>();
+            var result = new Result();
 
             try
             {
@@ -83,9 +83,9 @@ namespace ReelRating.Application.Services.ReviewServices
             return result;
         }
 
-        public async Task<Result<bool>> DeleteReview(DeleteReviewRequest request)
+        public async Task<Result> DeleteReview(DeleteReviewRequest request)
         {
-            var result = new Result<bool>();
+            var result = new Result();
 
             try
             {

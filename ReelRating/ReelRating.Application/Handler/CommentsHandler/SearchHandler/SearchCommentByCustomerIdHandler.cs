@@ -6,7 +6,7 @@ using ReelRating.Core.Schema.CommentsSchema.Response;
 
 namespace ReelRating.Application.Handler.CommentsHandler.SearchHandler
 {
-    public class SearchCommentByCustomerIdHandler : IRequestHandler<SearchCommentByCustomerIdRequest, Result<CommentResponse>>
+    public class SearchCommentByCustomerIdHandler : IRequestHandler<SearchCommentsByCustomerIdRequest, Result<CommentResponse>>
     {
         private readonly ISearchCommentsService _searchCommentsService;
 
@@ -15,7 +15,7 @@ namespace ReelRating.Application.Handler.CommentsHandler.SearchHandler
             _searchCommentsService = searchCommentsService;
         }
 
-        public async Task<Result<CommentResponse>> Handle(SearchCommentByCustomerIdRequest request, CancellationToken cancellationToken) =>
+        public async Task<Result<CommentResponse>> Handle(SearchCommentsByCustomerIdRequest request, CancellationToken cancellationToken) =>
                                 await _searchCommentsService.SearchCommentById(request);
     }
 }

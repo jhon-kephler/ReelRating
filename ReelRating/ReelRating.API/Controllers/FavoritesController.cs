@@ -1,19 +1,19 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ReelRating.Core.Schema.CommentsSchema.Request;
+using ReelRating.Core.Schema.FavoritesSchema.Request;
 
 namespace ReelRating.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [ApiExplorerSettings(GroupName = "comments")]
-    public class CommentsController : Controller
+    [ApiExplorerSettings(GroupName = "favorite")]
+    public class FavoritesController : Controller
     {
-        private readonly ILogger<CommentsController> _logger;
+        private readonly ILogger<FavoritesController> _logger;
         private readonly IMediator _mediator;
 
-        public CommentsController(ILogger<CommentsController> logger, IMediator mediator)
+        public FavoritesController(ILogger<FavoritesController> logger, IMediator mediator)
         {
             _logger = logger;
             _mediator = mediator;
@@ -21,7 +21,7 @@ namespace ReelRating.API.Controllers
 
         [Authorize]
         [HttpGet("")]
-        public async Task<IActionResult> GetComment([FromQuery] SearchCommentsByCustomerIdRequest request)
+        public async Task<IActionResult> GetFavorite([FromQuery] SearchFavoriteByCustomerIdRequest request)
         {
             var result = await _mediator.Send(request);
 
@@ -33,7 +33,7 @@ namespace ReelRating.API.Controllers
 
         [Authorize]
         [HttpGet("Cine")]
-        public async Task<IActionResult> GetCommentByCineId([FromQuery] SearchCommentByCustomerIdAndCineIdRequest request)
+        public async Task<IActionResult> GetFavoriteByCineId([FromQuery] SearchFavoriteByCustomerIdAndCineIdRequest request)
         {
             var result = await _mediator.Send(request);
 
@@ -45,7 +45,7 @@ namespace ReelRating.API.Controllers
 
         [Authorize]
         [HttpGet("ListById")]
-        public async Task<IActionResult> ListCommentById([FromQuery] ListCommentsByCustomerIdRequest request)
+        public async Task<IActionResult> ListFavoriteById([FromQuery] ListFavoritesByCustomerIdRequest request)
         {
             var result = await _mediator.Send(request);
 
@@ -57,7 +57,7 @@ namespace ReelRating.API.Controllers
 
         [Authorize]
         [HttpGet("List")]
-        public async Task<IActionResult> ListComment([FromQuery] ListCommentsRequest request)
+        public async Task<IActionResult> ListFavorite([FromQuery] ListFavoritesRequest request)
         {
             var result = await _mediator.Send(request);
 
@@ -69,7 +69,7 @@ namespace ReelRating.API.Controllers
 
         [Authorize]
         [HttpPost("Create")]
-        public async Task<IActionResult> PostCreate([FromBody] CreateCommentRequest request)
+        public async Task<IActionResult> PostCreate([FromBody] CreateFavoriteRequest request)
         {
             var result = await _mediator.Send(request);
 
@@ -81,7 +81,7 @@ namespace ReelRating.API.Controllers
 
         [Authorize]
         [HttpPost("Delete")]
-        public async Task<IActionResult> PostDelete([FromBody] DeleteCommentRequest request)
+        public async Task<IActionResult> PostDelete([FromBody] DeleteFavoriteRequest request)
         {
             var result = await _mediator.Send(request);
 

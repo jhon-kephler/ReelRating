@@ -8,7 +8,7 @@ using System.Text;
 
 namespace ReelRating.Application.Handler.ReviewHandler.ManageHandler
 {
-    public class ManageUpdateReviewHandler : IRequestHandler<UpdateReviewRequest, Result<bool>>
+    public class ManageUpdateReviewHandler : IRequestHandler<UpdateReviewRequest, Result>
     {
         private readonly IManageReviewService _manageReviewService;
 
@@ -17,7 +17,7 @@ namespace ReelRating.Application.Handler.ReviewHandler.ManageHandler
             _manageReviewService = manageReviewService;
         }
 
-        public async Task<Result<bool>> Handle(UpdateReviewRequest request, CancellationToken cancellationToken) =>
+        public async Task<Result> Handle(UpdateReviewRequest request, CancellationToken cancellationToken) =>
                                 await _manageReviewService.UpdateReview(request);
     }
 }

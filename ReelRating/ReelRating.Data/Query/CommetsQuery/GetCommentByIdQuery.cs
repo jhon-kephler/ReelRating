@@ -8,9 +8,9 @@ namespace ReelRating.Data.Query.CommetsQuery
 {
     public interface IGetCommentByIdQuery
     {
-        Task<Comments?> GetReviewById(int id);
-        Task<Comments?> GetReviewByIdAndCustomerId(int id, int customerId);
-        Task<Comments?> GetReviewByIdAndCustomerIdAndCineId(int id, int customerId, int cineId);
+        Task<Comments?> GetCommentById(int id);
+        Task<Comments?> GetCommentByIdAndCustomerId(int id, int customerId);
+        Task<Comments?> GetCommentByIdAndCustomerIdAndCineId(int id, int customerId, int cineId);
     }
 
     public class GetCommentByIdQuery : IGetCommentByIdQuery
@@ -22,21 +22,21 @@ namespace ReelRating.Data.Query.CommetsQuery
             _repository = repository;
         }
 
-        public async Task<Comments?> GetReviewById(int id)
+        public async Task<Comments?> GetCommentById(int id)
         {
             var result = new Comments();
             result = await _repository.GetAsync(x => x.Id == id);
             return result;
         }
 
-        public async Task<Comments?> GetReviewByIdAndCustomerId(int id, int customerId)
+        public async Task<Comments?> GetCommentByIdAndCustomerId(int id, int customerId)
         {
             var result = new Comments();
             result = await _repository.GetAsync(x => x.Id == id && x.CustomerId == customerId);
             return result;
         }
 
-        public async Task<Comments?> GetReviewByIdAndCustomerIdAndCineId(int id, int customerId, int cineId)
+        public async Task<Comments?> GetCommentByIdAndCustomerIdAndCineId(int id, int customerId, int cineId)
         {
             var result = new Comments();
             result = await _repository.GetAsync(x => x.Id == id && x.CustomerId == customerId && x.CineId == cineId);
