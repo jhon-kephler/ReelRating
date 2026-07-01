@@ -19,8 +19,4 @@
     <ProjectReference Include="..\ReelRating.Data\ReelRating.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Handler\Favoriteshandler\ManageHandler\" />
-  </ItemGroup>
-
 </Project>

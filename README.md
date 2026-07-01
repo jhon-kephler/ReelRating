@@ -4,6 +4,7 @@
 ![EF Core](https://img.shields.io/badge/EF%20Core-10.0-512BD4?logo=dotnet)
 ![Oracle](https://img.shields.io/badge/Oracle-Free-F80000?logo=oracle)
 ![MediatR](https://img.shields.io/badge/MediatR-14.1-blue)
+![Tests](https://img.shields.io/badge/tests-122%20passing-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 > API REST para avaliação de filmes e séries, construída com .NET 10 aplicando Clean Architecture, CQRS com MediatR e sincronização automática com a API do TMDB.
@@ -59,6 +60,8 @@ Controller → IMediator → Handler → Service → Query/Command → Repositor
 | JWT Bearer | 10.0.9 |
 | Scrutor | 7.0.0 |
 | Swashbuckle (Swagger) | 6.6.2 |
+| xUnit | 2.9.3 |
+| Moq | 4.20.72 |
 
 ---
 
@@ -239,6 +242,25 @@ Obtenha sua API Key gratuitamente em: https://www.themoviedb.org/settings/api
 
 ---
 
+## 🧪 Testes
+
+```bash
+dotnet test ReelRating.Tests\ReelRating.Tests.csproj
+```
+
+**116 testes unitários** cobrindo Handlers e Services de todos os domínios:
+
+| Domínio | Handlers | Services |
+|---|---|---|
+| Auth | ✅ | ✅ |
+| Cine | ✅ | ✅ |
+| Reviews | ✅ | ✅ |
+| Comments | ✅ | ✅ |
+| Favorites | ✅ | ✅ |
+| Filters | ✅ | ✅ |
+
+---
+
 ## 🗺️ Roadmap
 
 - [x] Autenticação JWT com BCrypt
@@ -247,7 +269,7 @@ Obtenha sua API Key gratuitamente em: https://www.themoviedb.org/settings/api
 - [x] Favoritos por usuário
 - [x] Sincronização automática via TMDB
 - [x] Cálculo automático de média de notas
-- [ ] Testes unitários e de integração
+- [x] Testes unitários (122 testes)
 - [ ] Frontend web
 - [ ] Histórico de filmes assistidos
 - [ ] Recomendações baseadas em preferências

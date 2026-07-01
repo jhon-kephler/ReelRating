@@ -9,7 +9,7 @@ using System.Text;
 
 namespace ReelRating.Application.Handler.Favoriteshandler.SearchHandler
 {
-    internal class SearchFavoriteByCustomerIdAndCineIdHandler : IRequestHandler<SearchFavoriteByCustomerIdAndCineIdRequest, Result<FavoritesResponse>>
+    public class SearchFavoriteByCustomerIdAndCineIdHandler : IRequestHandler<SearchFavoriteByCustomerIdAndCineIdRequest, Result<FavoritesResponse>>
     {
         private readonly ISearchFavoritesService _searchFavoritesService;
 
