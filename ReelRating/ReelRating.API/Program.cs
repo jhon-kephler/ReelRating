@@ -21,9 +21,21 @@ builder.Services.AddSwaggerGen(c =>
         Version = "v1"
     });
 
+    c.SwaggerDoc("comments", new OpenApiInfo
+    {
+        Title = "Comments API",
+        Version = "v1"
+    });
+
     c.SwaggerDoc("cine", new OpenApiInfo
     {
         Title = "Cine API",
+        Version = "v1"
+    });
+
+    c.SwaggerDoc("favorite", new OpenApiInfo
+    {
+        Title = "Favorite API",
         Version = "v1"
     });
 
@@ -68,6 +80,8 @@ if (app.Environment.IsDevelopment())
     {
         c.SwaggerEndpoint("/swagger/authentication/swagger.json", "Authentication API");
         c.SwaggerEndpoint("/swagger/cine/swagger.json", "Cine API");
+        c.SwaggerEndpoint("/swagger/comments/swagger.json", "Comments API");
+        c.SwaggerEndpoint("/swagger/favorite/swagger.json", "Favorite API");
         c.SwaggerEndpoint("/swagger/filters/swagger.json", "Filters API");
         c.SwaggerEndpoint("/swagger/review/swagger.json", "Review API");
 
