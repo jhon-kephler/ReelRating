@@ -270,11 +270,11 @@ dotnet test ReelRating.Tests\ReelRating.Tests.csproj
 - [x] Sincronização automática via TMDB
 - [x] Cálculo automático de média de notas
 - [x] Testes unitários (122 testes)
-- [ ] Frontend web
 - [ ] Histórico de filmes assistidos
 - [ ] Recomendações baseadas em preferências
 - [ ] Suporte a séries com episódios
 - [ ] Notificações de novos lançamentos
+- [ ] Frontend web
 
 ---
 
