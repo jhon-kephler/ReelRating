@@ -20,7 +20,7 @@ ReelRating/
 ├── ReelRating.Data          → DbContext, Repositories, Queries, Commands, Migrations
 ├── ReelRating.Domain        → Entidades, Interfaces de Repositório e Serviços
 ├── ReelRating.Infrastructure → DI, JWT Auth, HttpClient TMDB
-└── ReelRating.Worker        → Background Service de sincronização com TMDB
+└── ReelRating.Worker        → Background Services (TMDB Sync + Customer Notes)
 ```
 
 Fluxo de uma requisição:
@@ -32,13 +32,17 @@ Controller → IMediator → Handler → Service → Query/Command → Repositor
 
 ## 🧩 Funcionalidades
 
-- 🔐 Autenticação JWT (login por nickname ou e-mail)
-- 👤 Cadastro de usuários com BCrypt
+- 🔐 Autenticação JWT (login por nickname ou e-mail + BCrypt)
+- 👤 Cadastro de usuários com validação de duplicidade
 - 🎬 Listagem de filmes por ano, filtros e nome
-- 🗂️ Filtros por categoria e ano
-- 📄 Paginação server-side
-- 🔄 Sincronização automática de filmes via TMDB API (Worker)
-- 📖 Swagger segmentado por domínio (authentication, cine, filters)
+- 🗂️ Filtros por categoria e ano com paginação server-side
+- ⭐ Sistema de reviews (criar, editar, soft-delete, listar por usuário)
+- 💬 Sistema de comentários (criar, soft-delete, listar)
+- ❤️ Favoritos (adicionar, remover, listar por usuário)
+- 📝 Notas do TMDB e médias de avaliação dos usuários
+- 🔄 Sincronização automática de filmes via TMDB API
+- 📊 Cálculo automático de média de notas por filme
+- 📖 Swagger segmentado por domínio com autenticação integrada
 
 ---
 
@@ -70,11 +74,7 @@ Controller → IMediator → Handler → Service → Query/Command → Repositor
 ### 1. Subir o banco Oracle via Docker
 
 ```bash
-docker run -d \
-  --name oracle-reelrating \
-  -p 1521:1521 \
-  -e ORACLE_PASSWORD=ReelRatingDB2025 \
-  gvenzl/oracle-free
+docker run -d --name oracle-reelrating -p 1521:1521 -e ORACLE_PASSWORD=ReelRatingDB2025 gvenzl/oracle-free
 ```
 
 Aguarde o container inicializar (~30 segundos). Verifique com:
@@ -117,6 +117,7 @@ Esse comando executa as migrations em ordem:
   - **Tipos:** Filme, Série
   - **Categorias de Filmes:** Ação, Aventura, Animação, Comédia, Crime, Documentário, Drama, Família, Fantasia, Histórico, Horror, Musical, Mistério, Romance, Ficção Científica, Curta-metragem, Esporte, Suspense, Guerra, Faroeste
   - **Categorias de Séries:** Sitcom, Reality Show, Talk Show, Minissérie, Novela, Policial, Teen + todos os gêneros de Filmes
+- `RemoveReviewCategoriesAndStatus` — ajuste no modelo de Review
 
 ---
 
@@ -130,9 +131,9 @@ Swagger disponível em: `https://localhost:{porta}/swagger`
 
 ---
 
-### 5. Rodar o Worker (sincronização TMDB)
+### 5. Rodar o Worker
 
-O Worker roda de forma independente da API e sincroniza filmes do TMDB automaticamente a cada 60 minutos.
+O Worker roda de forma independente da API e executa dois jobs automáticos:
 
 ```bash
 dotnet run --project ReelRating.Worker\ReelRating.Worker.csproj
@@ -142,7 +143,7 @@ dotnet run --project ReelRating.Worker\ReelRating.Worker.csproj
 
 ## 🗄️ Conectar no DBeaver
 
-Após subir o Docker e rodar a migration, você pode inspecionar o banco:
+Após subir o Docker e rodar as migrations, você pode inspecionar o banco:
 
 | Campo | Valor |
 |---|---|
@@ -168,7 +169,7 @@ Após subir o Docker e rodar a migration, você pode inspecionar o banco:
 |---|---|---|---|
 | GET | `/api/Cine` | Lista filmes do ano atual (paginado) | ✅ |
 | GET | `/api/Cine/Name?Name=` | Busca filme por nome | ✅ |
-| GET | `/api/Cine/Filters?CategoriesId=&Year=&PageNumber=&PageSize=` | Lista por filtros | ✅ |
+| GET | `/api/Cine/Filters?CategoriesId=&Year=&PageNumber=&PageSize=` | Lista com filtros | ✅ |
 
 ### Filters
 | Método | Rota | Descrição | Auth |
@@ -176,17 +177,51 @@ Após subir o Docker e rodar a migration, você pode inspecionar o banco:
 | GET | `/api/Filters/Categories` | Lista categorias (paginado) | ❌ |
 | GET | `/api/Filters/Year` | Lista anos disponíveis (paginado) | ❌ |
 
+### Review
+| Método | Rota | Descrição | Auth |
+|---|---|---|---|
+| GET | `/api/Review?Id=` | Busca review por id | ✅ |
+| GET | `/api/Review/List?Id=&PageNumber=&PageSize=` | Lista reviews do usuário | ✅ |
+| POST | `/api/Review/Create` | Cria review | ✅ |
+| POST | `/api/Review/Update` | Atualiza review | ✅ |
+| POST | `/api/Review/Delete` | Soft-delete de review | ✅ |
+
+### Comments
+| Método | Rota | Descrição | Auth |
+|---|---|---|---|
+| GET | `/api/Comments?Id=&CustomerId=` | Busca comentário por id e usuário | ✅ |
+| GET | `/api/Comments/Cine?Id=&CustomerId=&CineId=` | Busca comentário por filme | ✅ |
+| GET | `/api/Comments/ListById?Id=&PageNumber=&PageSize=` | Lista comentários do usuário | ✅ |
+| GET | `/api/Comments/List?PageNumber=&PageSize=` | Lista todos os comentários | ✅ |
+| POST | `/api/Comments/Create` | Cria comentário | ✅ |
+| POST | `/api/Comments/Delete` | Soft-delete de comentário | ✅ |
+
+### Favorites
+| Método | Rota | Descrição | Auth |
+|---|---|---|---|
+| GET | `/api/Favorites?Id=&CustomerId=` | Busca favorito por id e usuário | ✅ |
+| GET | `/api/Favorites/Cine?Id=&CustomerId=&CineId=` | Busca favorito por filme | ✅ |
+| GET | `/api/Favorites/ListById?Id=&PageNumber=&PageSize=` | Lista favoritos do usuário | ✅ |
+| GET | `/api/Favorites/List?PageNumber=&PageSize=` | Lista todos os favoritos | ✅ |
+| POST | `/api/Favorites/Create` | Adiciona favorito (upsert) | ✅ |
+| POST | `/api/Favorites/Delete` | Remove favorito (soft-delete) | ✅ |
+
 ---
 
-## 🔄 Worker — Sincronização TMDB
+## 🔄 Worker — Jobs Automáticos
 
-O `SyncCineJob` é um `BackgroundService` que:
-
+### SyncCineJob
+Roda a cada 60 minutos e sincroniza filmes do TMDB:
 1. Consulta a API do TMDB (`/discover/movie`) página por página
 2. Faz upsert de filmes por `TmdbId`
 3. Salva a nota do TMDB em `Notes`
 4. Vincula os gêneros às categorias locais via `CineCategories`
-5. Repete a cada `SyncIntervalMinutes` (padrão: 60 min)
+
+### CustomerNotesJob
+Roda a cada 10 minutos e recalcula a média de notas dos usuários:
+1. Agrupa as reviews por filme (excluindo soft-deleted)
+2. Calcula a média das notas
+3. Atualiza `Notes.CustomerNotes` para cada filme avaliado
 
 Configuração em `ReelRating.Worker/appsettings.json`:
 
@@ -206,13 +241,18 @@ Obtenha sua API Key gratuitamente em: https://www.themoviedb.org/settings/api
 
 ## 🗺️ Roadmap
 
-- [ ] Frontend web (React ou Angular)
-- [ ] Favoritos por usuário
+- [x] Autenticação JWT com BCrypt
+- [x] Sistema de reviews com soft-delete
+- [x] Sistema de comentários
+- [x] Favoritos por usuário
+- [x] Sincronização automática via TMDB
+- [x] Cálculo automático de média de notas
+- [ ] Testes unitários e de integração
+- [ ] Frontend web
 - [ ] Histórico de filmes assistidos
 - [ ] Recomendações baseadas em preferências
 - [ ] Suporte a séries com episódios
 - [ ] Notificações de novos lançamentos
-- [ ] Testes unitários e de integração
 
 ---
 

@@ -54,7 +54,7 @@ namespace ReelRating.Application.Services.AuthServices
                 return result;
             }
 
-            var nickName = await _getCustomerQuery.GetByNickNameAsync(request.Email);
+            var nickName = await _getCustomerQuery.GetByNickNameAsync(request.Nickname);
             if (nickName != null)
             {
                 result.ValidateResult("nickName already exists");
